@@ -1,0 +1,8 @@
+@import "tailwindcss";
+
+html, body {
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default padding */
+  overflow-x: hidden; /* Disable horizontal scrolling to prevent white space */
+  overscroll-behavior-y:contain; /* Prevent extra bouncing at the edges */
+}
