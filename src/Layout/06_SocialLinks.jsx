@@ -10,7 +10,7 @@ export default function CardFive() {
             text="LinkedIn"
             animateOn="view"
             revealDirection="center"
-            className="text-gray-800 group-hover:text-blue-500 transition duration-300"
+            className="text-gray-800 group-hover:text-blue-600 transition duration-300"
           />
           {/* Underline animation */}
           <div className="absolute bottom-[-2px] left-0 w-0 h-[2px] bg-blue-500 group-hover:w-full transition-all duration-500"></div>
@@ -26,7 +26,7 @@ export default function CardFive() {
           text="Instagram"
           animateOn="view"
           revealDirection="center"
-          className="text-gray-800 group-hover:text-pink-500 transition duration-300"
+          className="text-gray-800 group-hover:text-pink-700 transition duration-300"
         />
         {/* Underline animation */}
         <div className="absolute bottom-[-2px] left-0 w-0 h-[2px] bg-pink-500 group-hover:w-full transition-all duration-500"></div>
