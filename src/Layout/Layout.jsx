@@ -1,15 +1,24 @@
 import { useEffect, useRef } from 'react'
 import Lenis from '@studio-freight/lenis'
-import Home from './Home'
-import Project from './Projects'
-import Timeline from './Timeline'
-import Skills from './Skills'
-import Footer from './SocialLinks'
-import Header from './header'
-import Intro from './Intro'
+import Home from './01_Home'
+import Project from './03_Projects'
+import Timeline from './05_Timeline'
+import Skills from './04_Skills'
+import Footer from './06_SocialLinks'
+import Header from './00_Header'
+import Intro from './02_Intro'
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 function App() {
   const lenisRef = useRef(null) // Removed <Lenis | null>
+
+  useEffect(() => {
+    AOS.init({
+      duration: 2000,
+    });
+  }, []); // Initialize AOS
+
 
   useEffect(() => {
     // Initialize Lenis
@@ -40,20 +49,20 @@ function App() {
       {/* Scrollable Content */}
       <div>
         <section className="relative">
-          <div>
+          <div data-aos="fade-up">
             <Home />
           </div>
-          <div>
+          <div data-aos="fade-up">
             <Intro />
           </div>
-          <div>
+          <div data-aos="fade-up">
             <Project />
           </div>
-          <div>
-            <Timeline />
-          </div>
-          <div>
+          <div data-aos="fade-up">
             <Skills />
+          </div>
+          <div data-aos="fade-up">
+            <Timeline />
           </div>
           <div>
             <Footer />

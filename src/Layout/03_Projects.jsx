@@ -1,5 +1,5 @@
-import Preview from '../components/custom_components/LivePreview';
-import Card from '../components/custom_components/ProjectCard';
+import Preview from '../components/custom_components/Btns/LivePreview';
+import Card from '../components/custom_components/Wall/ProjectCard';
 import { useState } from 'react';
 
 

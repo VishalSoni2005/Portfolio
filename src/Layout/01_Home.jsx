@@ -1,7 +1,7 @@
 import me from '../assets/me.png';
-import GradientText from '../components/custom_components/GradientText';
-import SplitText from '../components/custom_components/SplitText';
-import Loader from '../components/SequenceText';
+import GradientText from '../components/custom_components/Text_Component/GradientText';
+import SplitText from '../components/custom_components/Text_Component/SplitText';
+import Loader from '../components/custom_components/Text_Component/SequenceText';
 
 export default function cardFive() {
   return (

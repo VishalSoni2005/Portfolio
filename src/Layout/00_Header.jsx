@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 // import github from '../assets/github.png';
-import Github from '../components/custom_components/GithubBtn'
+import Github from '../components/custom_components/Btns/GithubBtn'
 
 import PropTypes from 'prop-types';
 

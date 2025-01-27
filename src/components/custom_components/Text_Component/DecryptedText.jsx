@@ -19,8 +19,8 @@ import propTypes from 'prop-types';
  */
 export default function DecryptedText({
   text,
-  speed = 50,
-  maxIterations = 10,
+  speed = 100,
+  maxIterations = 20,
   sequential = false,
   revealDirection = 'start',
   useOriginalCharsOnly = false,
@@ -236,5 +236,16 @@ export default function DecryptedText({
 }
 
 DecryptedText.propTypes = {
-  
+  text: propTypes.string,
+  speed: propTypes.number,
+  maxIterations: propTypes.number,
+  sequential: propTypes.bool,
+  revealDirection: propTypes.oneOf(['top', 'bottom']),
+  characters: propTypes.string,
+  useOriginalCharsOnly: propTypes.bool,
+  animateOn: propTypes.oneOf(['view', 'hover']),
+  className: propTypes.string,
+  encryptedClassName: propTypes.string,
+  parentClassName: propTypes.string,
+  onAnimationComplete: propTypes.func,
 }

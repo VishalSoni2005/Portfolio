@@ -27,7 +27,7 @@
 
 import { motion } from 'framer-motion';
 import Avatar from '../assets/Avatar.svg';
-import DownloadCV from '../components/custom_components/DownloadCV';
+import DownloadCV from '../components/custom_components/Btns/DownloadCV';
 
 export default function CardFive() {
   return (
