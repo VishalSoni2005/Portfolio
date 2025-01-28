@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const Card = () => {
   return (
-    <StyledWrapper>
+    <StyledWrapper className="relative">
       <div className="card">
         <div className="tools">
           <div className="circle">

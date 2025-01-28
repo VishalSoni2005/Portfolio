@@ -1,29 +1,3 @@
-// import Avatar from '../assets/Avatar.svg';
-// import DownloadCV from '../components/custom_components/DownloadCV'
-
-// export default function cardFive() {
-//   return (
-//     <div
-//       className={`h-screen bg-[#EFEFEF] text-black flex items-center justify-center overflow-hidden rounded-xl`}
-//     >
-//       <div className="w-1/2 flex justify-center items-center">
-//         <img src={Avatar} alt="Avatar" className="h-auto w-auto rounded-full" />
-//       </div>
-//       <div className="w-1/2 flex flex-col justify-center items-start">
-//         <span className='text-xl text-blue-600 border-1 border-blue-600 rounded-4xl p-1 font-bold'>About me</span>
-//         <span>
-//           I&#39;m a passionate Full-Stack Web Developer dedicated to building
-//           dynamic, user-friendly, and efficient web applications. With a strong
-//           foundation in both frontend and backend technologies, I thrive on
-//           transforming ideas into reality through code.
-//         </span>
-//         <div>
-//           <DownloadCV />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 
 import { motion } from 'framer-motion';
 import Avatar from '../assets/Avatar.svg';
