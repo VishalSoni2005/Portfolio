@@ -240,7 +240,7 @@ DecryptedText.propTypes = {
   speed: propTypes.number,
   maxIterations: propTypes.number,
   sequential: propTypes.bool,
-  revealDirection: propTypes.oneOf(['top', 'bottom']),
+  revealDirection: propTypes.string,
   characters: propTypes.string,
   useOriginalCharsOnly: propTypes.bool,
   animateOn: propTypes.oneOf(['view', 'hover']),
