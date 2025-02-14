@@ -4,8 +4,8 @@ import Home from './01_Home'
 import Project from './03_Projects'
 import Timeline from './05_Timeline'
 import Skills from './04_Skills'
-import Footer from './06_SocialLinks'
-import Header from './00_Header'
+// import Footer from './06_SocialLinks'
+// import Header from './00_Header'
 import Intro from './02_Intro'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -44,7 +44,7 @@ function App() {
   return (
     <div className="bg-[#FFFFF0] min-h-screen text-4xl relative">
       {/* Sticky Header */}
-      <Header className="sticky top-0  shadow-md z-10 w-screen h-auto" />
+      {/* <Header className="sticky top-0  shadow-md z-10 w-screen h-auto" /> */}
 
       {/* Scrollable Content */}
       <div>
@@ -64,9 +64,9 @@ function App() {
           <div data-aos="fade-up">
             <Timeline />
           </div>
-          <div>
+          {/* <div>
             <Footer />
-          </div>
+          </div> */}
         </section>
       </div>
     </div>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Button = () => {
   return (
     <StyledWrapper>
-      <button className="cssbuttons-io">
+      <button className="cssbuttons-io props">
         <span>Live Preview</span>
       </button>
     </StyledWrapper>
@@ -67,5 +67,6 @@ const StyledWrapper = styled.div`
     transform: scale(0.95);
   }
 `;
+
 
 export default Button;

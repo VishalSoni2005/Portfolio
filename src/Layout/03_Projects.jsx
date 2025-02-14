@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import ImgOne from '../assets/Project_Image/ChatApp.png';
 import ImgTwo from '../assets/Project_Image/ERP.png';
-import ImgThree from '../assets/Project_Image/Shop.png';
+// import ImgThree from '../assets/Project_Image/Shop.png';
 
 export default function Projects() {
   const [activeTab, setActiveTab] = useState(0);
@@ -31,6 +31,7 @@ export default function Projects() {
         'Socket.io',
         'JWT',
       ],
+      github: 'https://github.com/VishalSoni2005/Chat-Application.git',
     },
     {
       title: 'ERP Management System',
@@ -45,40 +46,89 @@ export default function Projects() {
         'Secure API',
       ],
       techStack: ['Next.js', 'Express.js', 'PostgreSQL', 'Tailwind CSS'],
+      github: 'https://github.com/VishalSoni2005/ERP_101.git',
     },
     {
-      title: 'E-Commerce Platform',
+      title: 'Portfolio Website',
       description:
-        'A modern e-commerce platform with product listings, cart, checkout, and secure payments. Built with React, Firebase, and Stripe.',
-      image: ImgThree,
+        'A portfolio website to showcase my work and skills. Built with React and Tailwind CSS.',
+      image: ImgOne,
       features: [
-        'Product Listings',
-        'Shopping Cart',
-        'Secure Payments',
-        'User Authentication',
+        'Responsive Design',
+        'Interactive Components',
+        'SEO Optimization',
       ],
-      techStack: ['React', 'Firebase', 'Stripe', 'Tailwind CSS'],
+      techStack: [
+        'React',
+        'Tailwind CSS',
+        'Responsive Design',
+        'Interactive Components',
+        'SEO Optimization',
+      ],
+      github: 'https://github.com/VishalSoni2005/Portfolio.git',
     },
+    {
+      title: 'Blog Website',
+      description:
+        'Blog Website Title Description Blog Website Title Description Blog Website Title Description',
+      image: ImgTwo,
+      features: [
+        'User Roles',
+        'Inventory Management',
+        'Payroll System',
+        'Financial Reports',
+        'Secure API',
+      ],
+      techStack: ['Next.js', 'Express.js', 'PostgreSQL', 'Tailwind CSS'],
+      github: 'https://github.com/VishalSoni2005/AI-Powered-Blog-Website.git',
+    },
+
   ];
+
+  const handleClick = (url) => {
+      // Replace with your GitHub repository URL
+      window.location.href = url;
+    };
+
 
   return (
     <div className="h-screen w-screen bg-[#161719] text-white flex items-center justify-center">
       <div className="flex flex-col h-full w-full rounded-xl shadow-lg bg-[#1e1f22] overflow-hidden">
         {/* Tabs Section */}
-        <div className="flex items-center justify-center w-full gap-6 px-6 py-4 bg-[#1f2125]">
-          {['Chat App', 'ERP System', 'E-Commerce'].map((tab, index) => (
-            <button
-              key={index}
-              onClick={() => setActiveTab(index)}
-              className={`px-6 py-2 rounded-lg font-serif text-lg transition-all duration-300 ${
-                activeTab === index
-                  ? 'bg-green-500 text-gray-800 font-bold shadow-md scale-105'
-                  : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
-              }`}
-            >
-              {tab}
-            </button>
-          ))}
+        {/* <div className="flex items-center justify-center w-full gap-6 px-6 py-4 bg-[#1f2125] ">
+          {['Chat App', 'ERP System', 'Portfolio Website', 'Blog Website'].map(
+            (tab, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveTab(index)}
+                className={`px-6 py-2 rounded-lg font-serif text-lg transition-all duration-300 ${
+                  activeTab === index
+                    ? 'bg-green-500 text-gray-800 font-bold shadow-md scale-105'
+                    : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                }`}
+              >
+                {tab}
+              </button>
+            )
+          )}
+        </div> */}
+
+        <div className="flex  sm:flex-row items-center justify-center w-full gap-4 sm:gap-6 px-4 sm:px-6 py-3 sm:py-4 bg-[#1f2125]">
+          {['Chat App', 'ERP System', 'Portfolio Website', 'Blog Website'].map(
+            (tab, index) => (
+              <button
+                key={index}
+                onClick={() => setActiveTab(index)}
+                className={`px-4 sm:px-6 py-2 rounded-lg font-serif text-base sm:text-lg transition-all duration-300 ${
+                  activeTab === index
+                    ? 'bg-green-500 text-gray-800 font-bold shadow-md scale-105'
+                    : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
+                }`}
+              >
+                {tab}
+              </button>
+            )
+          )}
         </div>
 
         {/* Content Section */}
@@ -123,9 +173,9 @@ export default function Projects() {
               </motion.div>
             </AnimatePresence>
           </div>
-
           {/* Right Section */}
-          <div className="md:w-1/2 flex flex-col items-center justify-center gap-4">
+          {/* <div className="md:w-1/2 flex md:hidden flex-col items-center justify-center gap-4 "> */}
+          <div className="hidden w-1/2 md:flex flex-col items-center justify-center gap-4">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -138,10 +188,13 @@ export default function Projects() {
                 <img
                   src={projectDetails[activeTab].image}
                   alt="Project"
-                  className="w-64 h-64 object-cover hover:scale-110 transition duration-500"
+                  className="w-64 h-64 object-cover hover:scale-110 transition duration-500 "
                 />
               </motion.div>
             </AnimatePresence>
+            <Preview onClick = {handleClick(projectDetails[activeTab].github)} />
+          </div>
+          <div className="block sm:hidden md:hidden ">
             <Preview />
           </div>
         </div>
