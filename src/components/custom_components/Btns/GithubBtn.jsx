@@ -3,7 +3,10 @@ import styled from 'styled-components';
 const Button = () => {
   return (
     <StyledWrapper>
-      <button className="btn ">
+      <button
+        onClick={() => window.open('https://github.com/VishalSoni2005')}
+        className="btn "
+      >
         <svg
           width={40}
           height={40}

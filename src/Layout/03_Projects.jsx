@@ -82,14 +82,12 @@ export default function Projects() {
       techStack: ['Next.js', 'Express.js', 'PostgreSQL', 'Tailwind CSS'],
       github: 'https://github.com/VishalSoni2005/AI-Powered-Blog-Website.git',
     },
-
   ];
 
-  const handleClick = (url) => {
-      // Replace with your GitHub repository URL
-      window.location.href = url;
-    };
-
+  const handlePreviewClick = () => {
+    // Navigate to the GitHub repository of the active project
+    window.location.href = projectDetails[activeTab].github;
+  };
 
   return (
     <div className="h-screen w-screen bg-[#161719] text-white flex items-center justify-center">
@@ -192,10 +190,10 @@ export default function Projects() {
                 />
               </motion.div>
             </AnimatePresence>
-            <Preview onClick = {handleClick(projectDetails[activeTab].github)} />
+            <Preview onClick={handlePreviewClick} />
           </div>
           <div className="block sm:hidden md:hidden ">
-            <Preview />
+            <Preview onClick={handlePreviewClick} />
           </div>
         </div>
       </div>

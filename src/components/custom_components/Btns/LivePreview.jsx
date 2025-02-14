@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import propTypes from 'prop-types';
 
-const Button = () => {
+const Button = ({ onClick }) => {
   return (
     <StyledWrapper>
-      <button className="cssbuttons-io props">
+      <button onClick={onClick} className="cssbuttons-io props">
         <span>Live Preview</span>
       </button>
     </StyledWrapper>
@@ -67,6 +68,10 @@ const StyledWrapper = styled.div`
     transform: scale(0.95);
   }
 `;
+
+Button.propTypes = {
+  onClick: propTypes.func.isRequired,
+};
 
 
 export default Button;
