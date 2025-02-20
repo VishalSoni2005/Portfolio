@@ -3,9 +3,9 @@ import styled from 'styled-components';
 const Loader = () => {
   return (
     <StyledWrapper>
-      <div className="card">
+      <div className="card flex items-center justify-center">
         <div className="loader">
-          <div className="words">
+          <div className="words  ">
             <span className="word">Beautiful</span>
             <span className="word">Modern</span>
             <span className="word">Creative</span>
@@ -124,7 +124,7 @@ const StyledWrapper = styled.div`
     font-size: 16px; /* Reduced font size */
     height: 25px; /* Reduced height */
     display: flex;
-    border-radius: 5px; /* Smaller border radius */
+    border-radius: 4px; /* Smaller border radius */
   }
 
   .words {

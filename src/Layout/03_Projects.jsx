@@ -93,23 +93,6 @@ export default function Projects() {
     <div className="h-screen w-screen bg-[#161719] text-white flex items-center justify-center">
       <div className="flex flex-col h-full w-full rounded-xl shadow-lg bg-[#1e1f22] overflow-hidden">
         {/* Tabs Section */}
-        {/* <div className="flex items-center justify-center w-full gap-6 px-6 py-4 bg-[#1f2125] ">
-          {['Chat App', 'ERP System', 'Portfolio Website', 'Blog Website'].map(
-            (tab, index) => (
-              <button
-                key={index}
-                onClick={() => setActiveTab(index)}
-                className={`px-6 py-2 rounded-lg font-serif text-lg transition-all duration-300 ${
-                  activeTab === index
-                    ? 'bg-green-500 text-gray-800 font-bold shadow-md scale-105'
-                    : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
-                }`}
-              >
-                {tab}
-              </button>
-            )
-          )}
-        </div> */}
 
         <div className="flex  sm:flex-row items-center justify-center w-full gap-4 sm:gap-6 px-4 sm:px-6 py-3 sm:py-4 bg-[#1f2125]">
           {['Chat App', 'ERP System', 'Portfolio Website', 'Blog Website'].map(
@@ -117,7 +100,7 @@ export default function Projects() {
               <button
                 key={index}
                 onClick={() => setActiveTab(index)}
-                className={`px-4 sm:px-6 py-2 rounded-lg font-serif text-base sm:text-lg transition-all duration-300 ${
+                className={`px-2 md:px-4 sm:px-6 md:py-2 rounded-lg font-serif text-base  sm:text-lg transition-all duration-300 ${
                   activeTab === index
                     ? 'bg-green-500 text-gray-800 font-bold shadow-md scale-105'
                     : 'bg-gray-700 text-gray-400 hover:bg-gray-600'
@@ -132,7 +115,7 @@ export default function Projects() {
         {/* Content Section */}
         <div className="flex flex-col md:flex-row flex-1 p-6 gap-6">
           {/* Left Section */}
-          <div className="md:w-1/2 space-y-4">
+          <div className="h-[90%] md:w-1/2 md:space-y-4">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeTab}
@@ -141,27 +124,29 @@ export default function Projects() {
                 exit={{ opacity: 0, x: 30 }}
                 transition={{ duration: 0.5 }}
               >
-                <h2 className="text-3xl font-bold">
+                <h2 className="text-2xl md:text-3xl font-bold">
                   {projectDetails[activeTab].title}
                 </h2>
-                <p className="text-lg text-gray-300">
+                <p className="text-xl md:text-lg text-gray-300">
                   {projectDetails[activeTab].description}
                 </p>
 
-                <div className="text-md space-y-2">
+                <div className="text-md md:text-lg mt-4 md:space-y-2">
                   <h3 className="text-xl font-serif">Features:</h3>
-                  <ul className="list-disc pl-5 text-gray-400 font-thin text-xl">
+                  <ul className="list-disc pl-5 text-gray-400 font-thin text-xl md:text-xl">
                     {projectDetails[activeTab].features.map((feature, i) => (
                       <li key={i}>{feature}</li>
                     ))}
                   </ul>
 
-                  <h3 className="text-xl font-semibold mt-4">Tech Stack:</h3>
-                  <ul className="flex flex-wrap gap-2">
+                  <h3 className="hidden sm:block text-xl font-semibold mt-4">
+                    Tech Stack:
+                  </h3>
+                  <ul className="hidden sm:flex flex-wrap gap-2 mt-2 cursor-pointer ">
                     {projectDetails[activeTab].techStack.map((tech, i) => (
                       <li
                         key={i}
-                        className="px-3 py-1 bg-gray-700 rounded-lg text-gray-300 text-sm"
+                        className="px-3 py-1 bg-gray-700 rounded-lg text-gray-300 text-sm hover:scale-105 transition-all duration-300 hover:bg-gray-600"
                       >
                         {tech}
                       </li>
@@ -192,7 +177,7 @@ export default function Projects() {
             </AnimatePresence>
             <Preview onClick={handlePreviewClick} />
           </div>
-          <div className="block sm:hidden md:hidden ">
+          <div className="flex items-center justify-center mb-8 md:hidden ">
             <Preview onClick={handlePreviewClick} />
           </div>
         </div>

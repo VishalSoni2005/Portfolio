@@ -4,11 +4,11 @@ export default function CardFive() {
   return (
     <div className="h-[400px] bg-black font-serif text-gray-400 flex flex-col items-center justify-center overflow-hidden rounded-xl ">
       {/* LinkedIn */}
-      <div style={{ marginTop: '2rem' }}>
-        <div className="group relative cursor-pointe text-8xl uppercase">
+      <div className="m-2 pl-6 pr-6">
+        <div className="group relative cursor-pointe text-4xl md:text-8xl uppercase">
           <button
             rel="noopener noreferrer"
-            className='group relative cursor-pointer text-8xl uppercase'
+            className="group relative cursor-pointer md:text-8xl uppercase"
             onClick={() =>
               window.open('https://www.linkedin.com/in/vishal-soni-07-/')
             }
@@ -27,15 +27,13 @@ export default function CardFive() {
 
       {/* Instagram */}
       <div
-        className="group relative cursor-pointer text-8xl uppercase"
+        className="group relative cursor-pointer md:text-8xl uppercase "
         style={{ marginTop: '2rem' }}
       >
         <button
           rel="noopener noreferrer"
-          className='group relative cursor-pointer text-8xl uppercase'
-          onClick={() =>
-            window.open('https://www.instagram.com/')
-          }
+          className="group relative cursor-pointer text-4xl md:text-8xl uppercase"
+          onClick={() => window.open('https://www.instagram.com/')}
         >
           <DecryptedText
             text="Instagram"

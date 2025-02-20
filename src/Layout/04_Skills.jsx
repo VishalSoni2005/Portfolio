@@ -47,21 +47,22 @@ const logoImgs = [
 
 export default function CardFive() {
   return (
-    <div className="h-screen bg-[#161719] flex flex-col items-center justify-center overflow-hidden p-10 ">
+    <div className="h-screen bg-[#161719] flex flex-col items-center justify-center overflow-hidden ">
       {/* Title */}
-      <h1 className="text-6xl font-serif text-green-400 mt-10 p-4 text-center drop-shadow-lg">
-        🎉 SUPERPOWER 🎉
+      <h1 className="text-6xl font-serif text-green-400 md:mt-10 -translate-y-9 p-4 text-center drop-shadow-lg">
+        <p className="hidden sm:inline">🎉</p> SUPERPOWER{' '}
+        <p className="hidden sm:inline">🎉</p>
       </h1>
 
       {/* Description */}
-      <p className="text-2xl font-light text-gray-300 m-6 p-6 text-center max-w-4xl leading-relaxed">
+      <p className="md:text-2xl text-xl font-light text-gray-300 mt-6 md:m-6 md:p-6 text-center max-w-4xl leading-relaxed -translate-y-6 pr-6 pl-6">
         I specialize in building modern, responsive web applications with a
         focus on performance and user experience. From frontend frameworks to
         backend logic, I have a versatile skill set that brings ideas to life.
       </p>
 
       {/* Marquee Section */}
-      <div className=" mt-10">
+      <div className="mt-10">
         <Marquee
           gradient={true}
           gradientColor={[22, 23, 25]}
