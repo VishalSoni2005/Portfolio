@@ -45,7 +45,7 @@ export default function Header() {
     //   }`}
     // >
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-500 backdrop-blur-md ${
+      className={`fixed top-0 left-0 w-full z-50 h-16 md:h-20 lg:h-16  transition-all duration-500 backdrop-blur-md ${
         isScrolled ? 'bg-white/900' : 'bg-transparent'
       }`}
     >
