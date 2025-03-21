@@ -797,6 +797,25 @@ const Dashboard = () => {
             </div>
           </section>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           {/* Projects Section */}
           <section id="projects" className="py-16 px-4 md:px-8">
             <div className="max-w-6xl mx-auto">
@@ -875,6 +894,17 @@ const Dashboard = () => {
             </div>
           </section>
 
+
+
+
+
+
+
+
+
+
+          
+
           {/* Activity Section */}
           <section id="activity" className="py-16 px-4 md:px-8 bg-gray-50">
             <div className="max-w-6xl mx-auto">
@@ -900,6 +930,8 @@ const Dashboard = () => {
                 </div>
 
                 <div className="mb-8">
+
+
                   <CalendarHeatmap
                     startDate={
                       new Date(
@@ -929,10 +961,10 @@ const Dashboard = () => {
 
                 <style>{`
                   :global(.react-calendar-heatmap .color-empty) {
-                    fill: #f0f0f0;
+                    fill: green;
                   }
                   :global(.react-calendar-heatmap .color-scale-1) {
-                    fill: #c6e48b;
+                    fill: green;
                   }
                   :global(.react-calendar-heatmap .color-scale-2) {
                     fill: #7bc96f;

@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 
 const AboutPage = () => {
@@ -64,48 +65,3 @@ const AboutPage = () => {
 };
 
 export default AboutPage;
-
-// import { useEffect, useRef } from 'react';
-// import Lenis from '@studio-freight/lenis';
-
-// export default function About() {
-//   const lenisRef = useRef(null);
-
-//   useEffect(() => {
-//     const lenis = new Lenis({
-//       smooth: true,
-//     });
-
-//     lenisRef.current = lenis;
-
-//     function raf(time) {
-//       lenis.raf(time);
-//       requestAnimationFrame(raf);
-//     }
-
-//     requestAnimationFrame(raf);
-
-//     return () => {
-//       lenis.destroy();
-//     };
-//   }, []);
-
-//   return (
-//     <div
-//       className="relative h-screen bg-cover bg-center bg-no-repeat"
-//       style={{
-//         backgroundImage:
-//           "url('https://images.unsplash.com/photo-1579547621706-1a9c79d5b41e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80')",
-//       }}
-//     >
-//       <div className="absolute inset-0 bg-black/50"></div>
-//       <div className="relative z-10 flex flex-col items-center justify-center h-full text-white text-center px-4">
-//         <h1 className="text-5xl font-bold">About Me</h1>
-//         <p className="mt-4 text-lg max-w-2xl">
-//           I&#39;m a passionate full-stack developer with experience in MERN
-//           stack, Next.js, and cloud technologies.
-//         </p>
-//       </div>
-//     </div>
-//   );
-// }

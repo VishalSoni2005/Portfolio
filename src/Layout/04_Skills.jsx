@@ -69,7 +69,7 @@ export default function CardFive() {
           gradientColor={[22, 23, 25]}
           speed={50}
           pauseOnHover={true}
-          className="w-full"
+          className="w-full overflow-y-hidden"
         >
           {logoImgs
             .slice(0, Math.ceil(logoImgs.length / 2))
@@ -97,7 +97,7 @@ export default function CardFive() {
           speed={40}
           pauseOnHover={true}
           direction="right"
-          className="w-full"
+          className="w-full overflow-y-hidden"
         >
           {logoImgs.slice(Math.ceil(logoImgs.length / 2)).map((logo, index) => (
             <div key={index} className="mx-6 flex flex-col items-center">
