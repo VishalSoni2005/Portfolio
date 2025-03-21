@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useMemo, useState } from 'react';
 import { useTheme } from 'next-themes';
+import PropTypes from 'prop-types';
 import { Cloud, fetchSimpleIcons, renderSimpleIcon } from 'react-icon-cloud';
 
 export const cloudProps = {
@@ -31,6 +32,8 @@ export const cloudProps = {
 };
 
 export const renderCustomIcon = (icon, theme, imageArray) => {
+  console.log(imageArray);
+
   const bgHex = theme === 'light' ? '#f3f2ef' : '#080510';
   const fallbackHex = theme === 'light' ? '#6e6e73' : '#ffffff';
   const minContrastRatio = theme === 'dark' ? 2 : 1.2;
@@ -93,44 +96,7 @@ export default function IconCloud({
   );
 }
 
-// import { IconCloud } from 'react-icon-cloud';
-// import {
-//   FaReact,
-//   FaNodeJs,
-//   FaHtml5,
-//   FaCss3Alt,
-//   FaJs,
-//   FaDatabase,
-//   FaDocker,
-//   FaGithub,
-//   FaPython,
-//   FaGit,
-// } from 'react-icons/fa';
-
-// export default function SkillCloud() {
-//   return (
-//     <div className="flex justify-center items-center h-screen bg-gray-900">
-//       <IconCloud
-//         className="w-[400px] h-[400px]"
-//         iconSize={60} // Adjust icon size
-//         backgroundHexColor="#000000"
-//         fallbackContent={<p>Loading...</p>}
-//         maxSpeed={0.07}
-//         minSpeed={0.02}
-//         direction={135} // Adjust rotation direction
-//       >
-//         {/* Add skill icons here */}
-//         <FaReact className="text-blue-400" />
-//         <FaNodeJs className="text-green-400" />
-//         <FaHtml5 className="text-orange-500" />
-//         <FaCss3Alt className="text-blue-500" />
-//         <FaJs className="text-yellow-400" />
-//         <FaDatabase className="text-purple-400" />
-//         <FaDocker className="text-blue-500" />
-//         <FaGithub className="text-gray-400" />
-//         <FaPython className="text-blue-300" />
-//         <FaGit className="text-red-400" />
-//       </IconCloud>
-//     </div>
-//   );
-// }
+IconCloud.propTypes = {
+  iconSlugs: PropTypes.arrayOf(PropTypes.string),
+  imageArray: PropTypes.arrayOf(PropTypes.string),
+};
