@@ -2,7 +2,7 @@ import DecryptedText from '../components/custom_components/Text_Component/Decryp
 
 export default function CardFive() {
   return (
-    <div className="h-[400px] bg-black font-serif text-gray-400 flex flex-col items-center justify-center overflow-hidden rounded-xl ">
+    <div className="h-[300px] bg-gray-800 font-serif text-gray-400 flex flex-col items-center justify-center overflow-hidden rounded-t-xl ">
       {/* LinkedIn */}
       <div className="m-2 pl-6 pr-6">
         <div className="group relative cursor-pointe text-4xl md:text-8xl uppercase">
