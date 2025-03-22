@@ -1,45 +1,43 @@
-import { useEffect, useRef } from 'react'
-import Lenis from '@studio-freight/lenis'
-import Home from './01_Home'
-import Project from './03_Projects'
-import Timeline from './05_Timeline'
-import Skills from './04_Skills'
-// import Footer from './06_SocialLinks'
-// import Header from './00_Header'
-import Intro from './02_Intro'
+import { useEffect, useRef } from 'react';
+import Lenis from '@studio-freight/lenis';
+import Home from './01_Home';
+import Project from './03_Projects';
+import Timeline from './05_Timeline';
+import Skills from './04_Skills';
+import Intro from './02_Intro';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 
 function App() {
-  const lenisRef = useRef(null) // Removed <Lenis | null>
+  const lenisRef = useRef(null); // Removed <Lenis | null>
 
+  // Initialize AOS
   useEffect(() => {
     AOS.init({
       duration: 1000,
     });
-  }, []); // Initialize AOS
+  }, []);
 
-
+  // Initialize Lenis
   useEffect(() => {
-    // Initialize Lenis
     const lenis = new Lenis({
       smooth: true,
-    })
+    });
 
     // Set reference
-    lenisRef.current = lenis
+    lenisRef.current = lenis;
 
     function raf(time) {
-      lenis.raf(time)
-      requestAnimationFrame(raf)
+      lenis.raf(time);
+      requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf)
+    requestAnimationFrame(raf);
 
     return () => {
-      lenis.destroy()
-    }
-  }, [])
+      lenis.destroy();
+    };
+  }, []);
 
   return (
     <div className="bg-[#FFFFF0] min-h-screen text-4xl relative">
@@ -64,13 +62,10 @@ function App() {
           <div data-aos="fade-left">
             <Timeline />
           </div>
-          {/* <div>
-            <Footer />
-          </div> */}
         </section>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
