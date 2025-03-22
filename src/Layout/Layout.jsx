@@ -55,13 +55,13 @@ function App() {
           <div data-aos="fade-up">
             <Intro />
           </div>
-          <div data-aos="fade-up">
+          <div data-aos="fade-left">
             <Project />
           </div>
-          <div data-aos="fade-up">
+          <div data-aos="fade-right">
             <Skills />
           </div>
-          <div data-aos="fade-up">
+          <div data-aos="fade-left">
             <Timeline />
           </div>
           {/* <div>

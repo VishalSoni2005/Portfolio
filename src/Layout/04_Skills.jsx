@@ -47,7 +47,7 @@ const logoImgs = [
 
 export default function CardFive() {
   return (
-    <div className="h-screen bg-[#161719] flex flex-col items-center justify-center overflow-hidden">
+    <div className="h-screen rounded-t-2xl bg-[#161719] flex flex-col items-center justify-center overflow-hidden">
       {/* Title */}
       <h1 className="text-5xl font-serif text-green-400 md:mt-6 p-4 text-center drop-shadow-lg">
         <span className="hidden sm:inline">🚀</span> My Superpowers{' '}

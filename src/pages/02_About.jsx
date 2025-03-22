@@ -45,20 +45,6 @@ function IconCloudDemo() {
 
 export default IconCloudDemo;
 
-// import IconCloudComponent from "../components/IconCloud/SkillCloud"
-// function About() {
-//   return (
-//     <div className="min-h-screen mt-16 flex items-center justify-center">
-
-//       <div className="max-w-4xl mx-auto">
-//         <h2>Skill cloud </h2>
-//         <div>
-//           <IconCloudComponent />
-//         </div>
-//       </div>
-//       </div>
-//   )
-// }
 
 // export default About
 

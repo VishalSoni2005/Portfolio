@@ -33,17 +33,17 @@ export default function CardFive() {
         <button
           rel="noopener noreferrer"
           className="group relative cursor-pointer text-4xl md:text-8xl uppercase"
-          onClick={() => window.open('https://www.instagram.com/')}
+          onClick={() => window.open('https://www.github.com/vishalsoni2005')}
         >
           <DecryptedText
-            text="Instagram"
+            text="Github"
             animateOn="view"
             revealDirection="center"
-            className="text-gray-400 group-hover:text-pink-700 transition duration-300"
+            className="text-gray-400 group-hover:text-gray-200 transition duration-300"
           />
         </button>
         {/* Underline animation */}
-        <div className="absolute bottom-[-2px] left-0 w-0 h-[2px] bg-pink-500 group-hover:w-full transition-all duration-500"></div>
+        <div className="absolute bottom-[-2px] left-0 w-0 h-[2px] bg-green-500 group-hover:w-full transition-all duration-500"></div>
       </div>
     </div>
   );
