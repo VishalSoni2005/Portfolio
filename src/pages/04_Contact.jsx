@@ -24,7 +24,13 @@ const ContactPage = () => {
   return (
     <>
       {/* Contact Section */}
-      <motion.section id="contact" className="py-16 px-4 md:px-8">
+      <motion.section id="contact"
+      
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: 20 }}
+        transition={{ duration: 1 }}
+      className="py-16 px-4 md:px-8">
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">Get In Touch</h2>
           <p className="text-gray-600 mb-12 text-center max-w-3xl mx-auto">

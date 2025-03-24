@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import {
@@ -404,128 +405,18 @@ const Dashboard = () => {
 
   return (
     <div className="flex min-h-screen mt-16 bg-gray-50">
-      {/* Sidebar */}
-      {/* <div
-        className={`${
-          isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } transform fixed md:relative z-30 w-64 bg-gray-900 text-white transition-transform duration-300 ease-in-out h-full flex flex-col`}
-      >
-        <div className="p-4 border-b border-gray-800 flex items-center space-x-3">
-          <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
-            <FaCode className="h-6 w-6" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg">Vishal Soni</h2>
-            <p className="text-xs text-gray-400">Full Stack Developer</p>
-          </div>
-        </div>
-
-        <nav className="flex-1 p-4">
-          <ul className="space-y-2">
-            {[
-              { id: 'overview', label: 'Overview', icon: <FaHome size={18} /> },
-              { id: 'skills', label: 'Skills', icon: <FaChartBar size={18} /> },
-              { id: 'projects', label: 'Projects', icon: <FaCode size={18} /> },
-              {
-                id: 'activity',
-                label: 'Activity',
-                icon: <FaGithub size={18} />,
-              },
-              {
-                id: 'contact',
-                label: 'Contact',
-                icon: <FaEnvelope size={18} />,
-              },
-            ].map(item => (
-              <li key={item.id}>
-                <button
-                  onClick={() => scrollToSection(item.id)}
-                  className={`w-full flex items-center space-x-3 p-2 rounded-lg transition-colors ${
-                    activeSection === item.id
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                      : 'text-gray-400 hover:bg-gray-800'
-                  }`}
-                >
-                  {item.icon}
-                  <span>{item.label}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="p-4 border-t border-gray-800">
-          <div className="flex justify-around">
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <FaGithub className="h-5 w-5" />
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <FaLinkedin className="h-5 w-5" />
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <FaTwitter className="h-5 w-5" />
-            </a>
-            <a
-              href="#"
-              className="text-gray-400 hover:text-white transition-colors"
-            >
-              <FaEnvelope className="h-5 w-5" />
-            </a>
-          </div>
-        </div>
-      </div> */}
-
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* Header */}
-        {/* <header
-          className={`bg-white shadow-sm z-20 sticky top-0 transition-all duration-300 ${scrollPosition > 50 ? 'py-2' : 'py-4'}`}
-        >
-          <div className="flex items-center justify-between px-4">
-            <button
-              onClick={() => setSidebarOpen(!isSidebarOpen)}
-              className="p-2 rounded-md text-gray-500 hover:text-gray-900 focus:outline-none"
-            >
-              {isSidebarOpen ? (
-                <FaArrowLeft size={18} />
-              ) : (
-                <FaArrowRight size={18} />
-              )}
-            </button>
-
-            <div className="flex items-center space-x-4">
-              <a
-                href="#"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <FaGithub className="h-5 w-5" />
-              </a>
-              <a
-                href="#"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                <FaLinkedin className="h-5 w-5" />
-              </a>
-              <div className="h-8 w-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white">
-                VS
-              </div>
-            </div>
-          </div>
-        </header> */}
-
         {/* Content */}
         <main className="flex-1 overflow-y-auto">
           {/* Overview Section */}
-          <section id="overview" className="py-16 px-4 md:px-8">
+          <motion.section
+            id="overview"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.6, 0.0, 0.3, 1] }}
+            className="py-16 px-4 md:px-8"
+          >
             <div className="max-w-6xl mx-auto">
               <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl shadow-xl overflow-hidden">
                 <div className="md:flex">
@@ -675,7 +566,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
 
           {/* Skills Section */}
           <section id="skills" className="py-16 px-4 md:px-8 bg-gray-50">
@@ -797,25 +688,6 @@ const Dashboard = () => {
             </div>
           </section>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           {/* Projects Section */}
           <section id="projects" className="py-16 px-4 md:px-8">
             <div className="max-w-6xl mx-auto">
@@ -894,19 +766,11 @@ const Dashboard = () => {
             </div>
           </section>
 
-
-
-
-
-
-
-
-
-
-          
-
           {/* Activity Section */}
-          <section id="activity" className="py-16 px-4 md:px-8 bg-gray-50">
+          <motion.section
+            id="activity"
+            className="py-16 px-4 md:px-8 bg-gray-50"
+          >
             <div className="max-w-6xl mx-auto">
               <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
                 Coding Activity
@@ -930,8 +794,6 @@ const Dashboard = () => {
                 </div>
 
                 <div className="mb-8">
-
-
                   <CalendarHeatmap
                     startDate={
                       new Date(
@@ -1106,7 +968,7 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </section>
+          </motion.section>
         </main>
       </div>
     </div>
