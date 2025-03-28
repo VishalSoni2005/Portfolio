@@ -7,10 +7,14 @@ import Contact from './pages/04_Contact';
 import Dashboard from './pages/05_Dashboard';
 import Header from './Layout/00_Header';
 import Footer from './Layout/06_SocialLinks';
-
+import ProgressBar from 'react-scroll-progress-bar';
 function App() {
   return (
     <Router>
+      <ProgressBar
+        height="6"
+        bgcolor="oklch(0.558 0.288 302.321)"
+      />
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />

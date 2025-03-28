@@ -1,12 +1,10 @@
-'use client';
-
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHub, ExternalLink, ArrowRight, Award, Layers } from 'react-feather';
+// import Together from "../assets/together.png";
 
+const togetherbanner = '../assets/together.png';
 // Assuming these images are imported correctly in your project
-const ImgOne = '../assets/Project_Image/ChatApp.png';
-const ImgTwo = '../assets/Project_Image/ERP.png';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -15,51 +13,68 @@ const Projects = () => {
     {
       title: 'VishalWrites Blog Website',
       description:
-        'A modern blog platform with content management system, user authentication, and responsive design for optimal reading experience.',
-      image: ImgTwo,
+        'A modern blog platform with content management system, user authentication, and responsive design for optimal reading experience with AI feature.',
+      image: togetherbanner,
       features: [
         'Content Management',
+        'AI-Powered Content Generation',
+        'Markdown Support',
         'User Authentication',
         'Comment System',
         'Search Functionality',
         'Responsive Design',
       ],
-      techStack: ['Next.js', 'Express.js', 'PostgreSQL', 'Tailwind CSS'],
+      techStack: [
+        'Node.js',
+        'Express.js',
+        'MongoDB',
+        'React',
+        'Cryptography',
+        'JWT Authentication',
+        'Tailwind CSS',
+      ],
       github: 'https://github.com/VishalSoni2005/AI-Powered-Blog-Website.git',
       demo: '#',
     },
     {
       title: 'Together Chat App',
       description:
-        'A full-stack chat app with real-time messaging, group chats, and a responsive UI. Built with React, Node.js, Socket.io, and MongoDB.',
-      image: ImgOne,
+        'A full-stack chat app with real-time messaging , end-to-end encryption and a responsive UI. Built with React, Node.js, Socket.io, and MongoDB.',
+      image: '../assets/together.png',
       features: [
         'Real-time messaging',
-        'Group chats',
+        'End-to-end encryption',
         'User authentication',
         'Typing indicators',
         'Online/offline status',
+        'costumizable themes',
+        'User profile',
+        'Reset password',
+        'Group chat',
+        'Data security',
         'File sharing',
         'Responsive UI',
       ],
       techStack: [
         'React',
-        'TypeScript',
+        'Cryptography',
+        'Express.js',
         'Tailwind CSS',
         'Node.js',
         'MongoDB',
+        "AES-256-CBC Encryption",
         'Socket.io',
         'JWT',
       ],
       github: 'https://github.com/VishalSoni2005/Chat-Application.git',
       demo: '#',
     },
-    
+
     {
       title: 'Portfolio Website',
       description:
         'A portfolio website to showcase my work and skills. Built with React and Tailwind CSS.',
-      image: ImgOne,
+      image: '',
       features: [
         'Responsive Design',
         'Interactive Components',
