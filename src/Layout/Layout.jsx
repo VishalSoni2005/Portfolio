@@ -40,7 +40,7 @@ function App() {
   }, []);
 
   return (
-    <div className="bg-[#FFFFF0] min-h-screen text-4xl relative">
+    <div className="bg-[#FFFFF0] min-h-screen text relative">
       {/* Sticky Header */}
       {/* <Header className="sticky top-0  shadow-md z-10 w-screen h-auto" /> */}
 

@@ -14,6 +14,7 @@ function App() {
       <ProgressBar
         height="6"
         bgcolor="oklch(0.558 0.288 302.321)"
+        duration= "0"
       />
       <Header />
       <Routes>
