@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHub, ExternalLink, ArrowRight, Award, Layers } from 'react-feather';
-// import Together from "../assets/together.png";
 
-const togetherbanner = '../assets/together.png';
-// Assuming these images are imported correctly in your project
+import vishalWritesImage from '../assets/image.png';
+import togetherImage from '../assets/together.png';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -14,7 +13,7 @@ const Projects = () => {
       title: 'VishalWrites Blog Website',
       description:
         'A modern blog platform with content management system, user authentication, and responsive design for optimal reading experience with AI feature.',
-      image: togetherbanner,
+      image: vishalWritesImage,
       features: [
         'Content Management',
         'AI-Powered Content Generation',
@@ -40,7 +39,7 @@ const Projects = () => {
       title: 'Together Chat App',
       description:
         'A full-stack chat app with real-time messaging , end-to-end encryption and a responsive UI. Built with React, Node.js, Socket.io, and MongoDB.',
-      image: '../assets/together.png',
+      image: togetherImage,
       features: [
         'Real-time messaging',
         'End-to-end encryption',
@@ -161,8 +160,9 @@ const Projects = () => {
                   <div className="relative group w-full h-72 sm:h-96 md:h-[32rem] overflow-hidden rounded-xl shadow-lg">
                     <img
                       src={
-                        projectDetails[activeTab].image || '/placeholder.svg'
+                        projectDetails[activeTab].image
                       }
+
                       alt={projectDetails[activeTab].title}
                       className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
                     />
@@ -206,10 +206,10 @@ const Projects = () => {
                       {activeTab === 0
                         ? 'Web App'
                         : activeTab === 1
-                          ? 'Enterprise'
-                          : activeTab === 2
-                            ? 'Portfolio'
-                            : 'Blog'}
+                        ? 'Enterprise'
+                        : activeTab === 2
+                        ? 'Portfolio'
+                        : 'Blog'}
                     </span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">

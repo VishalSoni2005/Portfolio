@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import CalendarHeatmap from 'react-calendar-heatmap';
@@ -22,6 +20,7 @@ import {
   FaArrowRight,
   FaEye,
   FaStar,
+  FaSatelliteDish,
 } from 'react-icons/fa';
 import {
   SiTypescript,
@@ -30,11 +29,10 @@ import {
   SiRedux,
   SiTailwindcss,
   SiNextdotjs,
-  SiFirebase,
-  SiGraphql,
-  SiWebrtc,
   SiSocketdotio,
   SiOpenai,
+  SiMysql,
+  SiGooglegemini,
 } from 'react-icons/si';
 
 const Dashboard = () => {
@@ -201,6 +199,11 @@ const Dashboard = () => {
           level: 90,
           icon: <SiTailwindcss size={24} color="#38B2AC" />,
         },
+        {
+          name: "zustand",
+          level: 80,
+          icon: <FaSatelliteDish size={24} color="#000000" />,
+        }
       ],
     },
     {
@@ -222,9 +225,9 @@ const Dashboard = () => {
           icon: <FaServer size={24} color="#FF5733" />,
         },
         {
-          name: 'GraphQL',
+          name: 'Cryptography',
           level: 80,
-          icon: <SiGraphql size={24} color="#E535AB" />,
+          icon: <FaLock size={24} color="#E535AB" />,
         },
         {
           name: 'WebSockets',
@@ -242,9 +245,9 @@ const Dashboard = () => {
           icon: <SiMongodb size={24} color="#4DB33D" />,
         },
         {
-          name: 'Firebase',
+          name: 'MySql',
           level: 80,
-          icon: <SiFirebase size={24} color="#FFCA28" />,
+          icon: <SiMysql size={24} color="#4479A1" />,
         },
       ],
     },
@@ -252,9 +255,9 @@ const Dashboard = () => {
       name: 'Specialized',
       skills: [
         {
-          name: 'WebRTC',
+          name: 'React',
           level: 85,
-          icon: <SiWebrtc size={24} color="#333333" />,
+          icon: <FaReact size={24} color="#61DBFB" />,
         },
         {
           name: 'Socket.io',
@@ -276,6 +279,11 @@ const Dashboard = () => {
           level: 80,
           icon: <SiOpenai size={24} color="#412991" />,
         },
+        {
+          name: "Gemini API",
+          level: 80,
+          icon: <SiGooglegemini size={24} color="#FFFFFF" />,
+        }
       ],
     },
   ];
@@ -304,10 +312,10 @@ const Dashboard = () => {
       technologies: [
         'React',
         'Node.js',
-        'OpenAI API',
         'MongoDB',
         'Express',
-        'Redux',
+        'Gemini API',
+        "Context API"
       ],
       image: 'https://placeholder.svg?height=300&width=500',
       icon: <FaRobot className="text-blue-500" size={24} />,
@@ -328,8 +336,12 @@ const Dashboard = () => {
       technologies: [
         'React',
         'Socket.io',
-        'WebRTC',
         'Node.js',
+        'Express',
+
+        'zustand',
+        'WebSockets',
+
         'MongoDB',
         'Encryption Libraries',
       ],
@@ -350,12 +362,13 @@ const Dashboard = () => {
         'Automated skill assessment',
       ],
       technologies: [
+        'Next.js',
+        'Tailwind CSS',
+        "AI Voice Agent",
+
         'React',
-        'WebRTC',
         'Monaco Editor',
         'Node.js',
-        'PostgreSQL',
-        'Docker',
       ],
       image: 'https://placeholder.svg?height=300&width=500',
       icon: <FaVideo className="text-purple-500" size={24} />,
@@ -368,24 +381,15 @@ const Dashboard = () => {
   const stats = [
     {
       label: 'Projects Completed',
-      value: '15+',
+      value: '3+',
       icon: <FaCode size={24} className="text-blue-500" />,
     },
     {
-      label: 'GitHub Stars',
-      value: '450+',
+      label: 'Leetcode Problems Solved',
+      value: '250+',
       icon: <FaStar size={24} className="text-yellow-500" />,
     },
-    {
-      label: 'Client Satisfaction',
-      value: '100%',
-      icon: <FaChartBar size={24} className="text-green-500" />,
-    },
-    {
-      label: 'Years Experience',
-      value: '5+',
-      icon: <FaServer size={24} className="text-purple-500" />,
-    },
+    
   ];
 
   // Scroll to section
