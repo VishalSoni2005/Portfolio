@@ -111,14 +111,13 @@ const Loader = () => {
 
 const StyledWrapper = styled.div`
   .card {
-    --bg-color: var(--color-green-500);
     background-color: var(--bg-color);
     padding: 0.5rem; /* Reduced padding */
     border-radius: 0.75rem; /* Smaller rounded corners */
   }
 
   .loader {
-    color: rgb(124, 124, 124);
+    color: rgb(1, 1, 1);
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     font-size: 16px; /* Reduced font size */
@@ -149,7 +148,7 @@ const StyledWrapper = styled.div`
     display: block;
     height: 100%;
     padding-left: 4px; /* Adjust spacing */
-    color: white;
+    color: black;
     animation: spin_4991 6s infinite;
   }
 
@@ -178,6 +177,7 @@ const StyledWrapper = styled.div`
     100% {
       transform: translateY(-400%);
     }
+      
   }
 `;
 
