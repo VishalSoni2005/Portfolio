@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import me from '../assets/me.png';
 import GradientText from '../components/custom_components/Text_Component/GradientText';
@@ -57,8 +56,6 @@ export default function HomePage() {
   const textEnter = () => setCursorVariant('text');
   const imageEnter = () => setCursorVariant('image');
   const cursorLeave = () => setCursorVariant('default');
-
- 
 
   return (
     <>
@@ -167,14 +164,28 @@ export default function HomePage() {
             <div className="absolute -inset-0.5 bg-gradient-to-r from-[#40ffaa] to-[#4079ff] rounded-full opacity-75 blur-sm group-hover:opacity-100"></div>
             <div className="absolute -inset-1 bg-gradient-to-r from-[#40ffaa] to-[#4079ff] rounded-full opacity-50 blur-md"></div>
 
-            {/* Image */}
+            {/* Image
             <img
               src={me || '/placeholder.svg'}
               alt="Vishal Soni portrait"
               className="relative w-[180px] h-[240px] md:w-[220px] md:h-[280px] lg:w-[260px] lg:h-[320px] rounded-2xl object-cover shadow-xl border-2 border-white/50
                 transform transition-all duration-700 ease-in-out
                 hover:shadow-2xl hover:border-[#40ffaa]/50"
-            />
+            /> */}
+
+            <div className="relative rounded-2xl overflow-hidden">
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-br from-[#40ffaa]/10 to-[#4079ff]/10 opacity-0 group-hover:opacity-100 z-10 "
+                transition={{ duration: 0.5 }}
+              />
+              <img
+                src={me || '/placeholder.svg'}
+                alt="Vishal Soni portrait"
+                className="relative w-[180px] h-[240px] md:w-[220px] md:h-[280px] lg:w-[260px] lg:h-[320px] object-cover shadow-xl border-2 border-white/50 rounded-2xl 
+                  transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]
+                  group-hover:border-[#40ffaa]/30 hover:grayscale-0"
+              />
+            </div>
 
             {/* Floating elements */}
             <motion.div
@@ -209,19 +220,20 @@ export default function HomePage() {
         </motion.div>
 
         {/* Mobile CTA Button */}
-      
-          <motion.button
-            className="px-6 py-3 bg-gradient-to-r from-[#40ffaa] to-[#4079ff] text-white rounded-lg font-medium shadow-lg shadow-[#4079ff]/20 md:hidden w-full max-w-xs"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            View My Work
-          </motion.button>
+
+        <motion.button
+          className="px-6 py-3 bg-gradient-to-r from-[#40ffaa] to-[#4079ff] text-white rounded-lg font-medium shadow-lg shadow-[#4079ff]/20 md:hidden w-full max-w-xs"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          View My Work
+        </motion.button>
       </div>
     </>
   );
 }
 
+//! ori
 // import me from '../assets/me.png';
 // import GradientText from '../components/custom_components/Text_Component/GradientText';
 // import SplitText from '../components/custom_components/Text_Component/SplitText';
