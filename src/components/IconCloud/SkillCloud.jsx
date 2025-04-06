@@ -1,6 +1,4 @@
-'use client';
 import { useEffect, useMemo, useState } from 'react';
-import { useTheme } from 'next-themes';
 import PropTypes from 'prop-types';
 import { Cloud, fetchSimpleIcons, renderSimpleIcon } from 'react-icon-cloud';
 
@@ -21,21 +19,23 @@ export const cloudProps = {
     imageScale: 2,
     activeCursor: 'default',
     tooltip: 'native',
-    initial: [0.1, -0.1],
+    initial: [-0.1, -0.1],
     clickToFront: 500,
     tooltipDelay: 0,
     outlineColour: '#000',
     maxSpeed: 0.04,
+
     minSpeed: 0.02,
-    // dragControl: false,
+    dragControl: false,
+     
   },
 };
 
 export const renderCustomIcon = (icon, theme, imageArray) => {
   console.log(imageArray);
 
-  const bgHex = theme === 'light' ? '#f3f2ef' : '#080510';
-  const fallbackHex = theme === 'light' ? '#6e6e73' : '#ffffff';
+  const bgHex = '#f3f2ef' ;
+  const fallbackHex =  '#6e6e73'
   const minContrastRatio = theme === 'dark' ? 2 : 1.2;
 
   return renderSimpleIcon({
@@ -53,18 +53,17 @@ export const renderCustomIcon = (icon, theme, imageArray) => {
   });
 };
 
-export default function IconCloud({
-  // Default to an empty array if not provided
-  iconSlugs = [],
 
+
+export default function IconCloud({
+  iconSlugs = [],
   imageArray,
 }) {
   const [data, setData] = useState(null);
-  const { theme } = useTheme();
+  const  theme = 'light';
 
   useEffect(() => {
     if (iconSlugs.length > 0) {
-      // Check if iconSlugs is not empty
       fetchSimpleIcons({ slugs: iconSlugs }).then(setData);
     }
   }, [iconSlugs]);
@@ -73,7 +72,7 @@ export default function IconCloud({
     if (!data) return null;
 
     return Object.values(data.simpleIcons).map(icon =>
-      renderCustomIcon(icon, theme || 'dark')
+      renderCustomIcon(icon, theme || 'light')
     );
   }, [data, theme]);
 
@@ -99,4 +98,12 @@ export default function IconCloud({
 IconCloud.propTypes = {
   iconSlugs: PropTypes.arrayOf(PropTypes.string),
   imageArray: PropTypes.arrayOf(PropTypes.string),
+  theme: PropTypes.string,
+  imageScale: PropTypes.number,
+  maxSpeed: PropTypes.number,
+  minSpeed: PropTypes.number,
+  depth: PropTypes.number,
+  reverse: PropTypes.bool,
+  wheelZoom: PropTypes.bool,
+  dragControl: PropTypes.bool,
 };

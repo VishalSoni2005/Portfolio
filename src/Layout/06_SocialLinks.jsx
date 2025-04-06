@@ -1,4 +1,3 @@
-'use client';
 
 import { useState } from 'react';
 import DecryptedText from '../components/custom_components/Text_Component/DecryptedText';
@@ -80,7 +79,7 @@ export default function SocialLinks() {
             <div
               key={link.name}
               className="group relative"
-              onMouseEnter={() => setHoveredLink(link.name)}
+              // onMouseEnter={() => setHoveredLink(link.name)}
               onMouseLeave={() => setHoveredLink(null)}
             >
               <button

@@ -233,7 +233,7 @@ export default function HomePage() {
   );
 }
 
-//! ori
+//! original
 // import me from '../assets/me.png';
 // import GradientText from '../components/custom_components/Text_Component/GradientText';
 // import SplitText from '../components/custom_components/Text_Component/SplitText';
