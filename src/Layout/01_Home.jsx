@@ -183,7 +183,7 @@ export default function HomePage() {
                 alt="Vishal Soni portrait"
                 className="relative w-[180px] h-[240px] md:w-[220px] md:h-[280px] lg:w-[260px] lg:h-[320px] object-cover shadow-xl border-2 border-white/50 rounded-2xl 
                   transition-all duration-700 ease-[cubic-bezier(0.19,1,0.22,1)]
-                  group-hover:border-[#40ffaa]/30 hover:grayscale-0"
+                  group-hover:border-[#40ffaa]/30 grayscale-75"
               />
             </div>
 
