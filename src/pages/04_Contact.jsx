@@ -1,5 +1,8 @@
 import { useState } from 'react';
 import emailjs from 'emailjs-com';
+import { toast } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
+
 
 import { motion } from 'framer-motion';
 import {
@@ -30,14 +33,15 @@ const ContactPage = () => {
       emailjs
         .send(
           'service_ec26dit', // service id
-          'template_su1mb8k', // template id
+          'template_4k0enuu', // template id
           formData,
           'lUw-YnIRuLNX_brvC'
         )
         .then(
+          // eslint-disable-next-line no-unused-vars
           result => {
-            alert('Message sent successfully!');
-            console.log(result);
+            toast.success('Message sent successfully!');
+            // console.log(result);
 
             setFormData({ name: '', email: '', message: '' });
           },
@@ -61,6 +65,8 @@ const ContactPage = () => {
         transition={{ duration: 1 }}
         className="py-16 px-4 md:px-8"
       >
+        <Toaster position="top-right" reverseOrder={false} />
+
         <div className="max-w-6xl mx-auto">
           <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
             Get In Touch
@@ -203,8 +209,9 @@ const ContactPage = () => {
                     href="htttps://medium.com/@vishalsoni2005"
                     rel="noopener noreferrer"
                     target="_blank"
+                    className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors"
                   >
-                    <FaMedium className="h-10 w-10 rounded-full bg-white/20 flex items-center justify-center hover:bg-white/30 transition-colors" />
+                    <FaMedium className="h-5 w-5 " />
                   </a>
                   <a
                     href="mailto:vsoni0882@gmail.com"
