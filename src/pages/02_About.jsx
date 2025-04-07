@@ -642,6 +642,7 @@ import { useState, useRef } from 'react';
 import IconCloud from '../components/IconCloud/SkillCloud';
 import { motion, useInView } from 'framer-motion';
 import { ArrowRight, Download } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const slugs = [
   'typescript',
@@ -762,14 +763,12 @@ export default function AboutPage() {
                   love turning ideas into impactful digital solutions.
                 </p>
                 <div className="flex flex-wrap gap-4">
-                  <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 hover:bg-blue-700 transition-colors">
-                    Contact Me <ArrowRight size={18} />
-                  </button>
-                  <a
-                    href="/cv.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
+                  <Link to={'/contact'}>
+                    <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 hover:bg-blue-700 transition-colors">
+                      Contact Me <ArrowRight size={18} />
+                    </button>
+                  </Link>
+                  <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">
                     <button className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors">
                       Download CV <Download size={18} />
                     </button>

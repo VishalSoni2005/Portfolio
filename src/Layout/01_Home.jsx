@@ -4,7 +4,9 @@ import GradientText from '../components/custom_components/Text_Component/Gradien
 import SplitText from '../components/custom_components/Text_Component/SplitText';
 import Loader from '../components/custom_components/Text_Component/SequenceText';
 import { motion, useAnimation } from 'framer-motion';
+import { ArrowDown } from 'react-feather';
 // import {  useNavigate } from 'react-router-dom';
+
 
 export default function HomePage() {
   // const Navigate = useNavigate();
@@ -334,7 +336,7 @@ export default function HomePage() {
                 repeatDelay: 0.5,
               }}
             />
-            View My Work
+            Scroll <ArrowDown className="inline-block" />  to Know Me
           </motion.button>
         </motion.div>
 
