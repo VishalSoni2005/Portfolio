@@ -61,7 +61,7 @@ const Projects = () => {
         'Tailwind CSS',
         'Node.js',
         'MongoDB',
-        "AES-256-CBC Encryption",
+        'AES-256-CBC Encryption',
         'Socket.io',
         'JWT',
       ],
@@ -86,7 +86,7 @@ const Projects = () => {
         'Responsive Design',
       ],
       github: 'https://github.com/VishalSoni2005/Portfolio.git',
-      demo: '#',
+      demo: 'https://vsoni.vercel.app/',
     },
   ];
 
@@ -164,7 +164,7 @@ const Projects = () => {
                       }
 
                       alt={projectDetails[activeTab].title}
-                      className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                      className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center p-6">
                       <div className="flex gap-4">

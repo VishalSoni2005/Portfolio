@@ -137,7 +137,7 @@
 // };
 
 // export default function AboutPage() {
-  
+
 //   const [activeCategory, setActiveCategory] = useState(null);
 //   const [visibleSkills, setVisibleSkills] = useState([]);
 //   const slugs = [
@@ -637,13 +637,11 @@
 //   );
 // }
 
+import pic from '../assets/mypic.jpg';
 import { useState, useRef } from 'react';
 import IconCloud from '../components/IconCloud/SkillCloud';
 import { motion, useInView } from 'framer-motion';
-import {
-  ArrowRight,
-  Download,
-} from 'lucide-react';
+import { ArrowRight, Download } from 'lucide-react';
 
 const slugs = [
   'typescript',
@@ -704,7 +702,7 @@ const slugs = [
 const skillCategories = [
   {
     name: 'Languages',
-    skills: ['TypeScript', 'JavaScript', 'Python', 'Java', 'C++', "Rust"],
+    skills: ['TypeScript', 'JavaScript', 'Python', 'Java', 'C++', 'Rust'],
   },
   {
     name: 'Frontend',
@@ -767,9 +765,15 @@ export default function AboutPage() {
                   <button className="px-6 py-3 bg-blue-600 text-white rounded-lg font-medium flex items-center gap-2 hover:bg-blue-700 transition-colors">
                     Contact Me <ArrowRight size={18} />
                   </button>
-                  <button className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors">
-                    Download CV <Download size={18} />
-                  </button>
+                  <a
+                    href="/cv.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button className="px-6 py-3 border border-gray-300 text-gray-700 rounded-lg font-medium flex items-center gap-2 hover:bg-gray-100 transition-colors">
+                      Download CV <Download size={18} />
+                    </button>
+                  </a>
                 </div>
               </motion.div>
             </div>
@@ -783,7 +787,7 @@ export default function AboutPage() {
               >
                 <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-8 border-white shadow-xl">
                   <img
-                    src="/placeholder.svg?height=320&width=320"
+                    src={pic}
                     alt="Profile"
                     width={320}
                     height={320}
@@ -814,11 +818,11 @@ export default function AboutPage() {
             <div className="prose prose-lg max-w-none">
               <p>
                 {' '}
-                I&apos;m a passionate developer with a strong interest in building
-                modern web and mobile applications. With a solid foundation in
-                both frontend and backend technologies, I focus on creating
-                seamless, user-centric experiences that solve real-world
-                problems.{' '}
+                I&apos;m a passionate developer with a strong interest in
+                building modern web and mobile applications. With a solid
+                foundation in both frontend and backend technologies, I focus on
+                creating seamless, user-centric experiences that solve
+                real-world problems.{' '}
               </p>{' '}
               <p>
                 {' '}
@@ -833,8 +837,8 @@ export default function AboutPage() {
                 {' '}
                 Outside of development, I enjoy exploring new technologies,
                 contributing to open-source projects, and sharing insights
-                through blogging and community engagement. I&apos;m always excited to
-                take on new challenges and grow as a developer.{' '}
+                through blogging and community engagement. I&apos;m always
+                excited to take on new challenges and grow as a developer.{' '}
               </p>
             </div>
           </motion.div>

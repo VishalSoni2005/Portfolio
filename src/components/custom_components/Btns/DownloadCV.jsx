@@ -1,18 +1,23 @@
 import styled from 'styled-components';
 
-const CV =
-  'https://drive.google.com/uc?export=download&id=1GNX1OV4BW5_ro3lvMdr4s2s6YqwFulnL';
-
 const Button = () => {
   return (
     <StyledWrapper>
-      <button onClick={() => window.open(CV)} className="cta">
-        <span>Download CV</span>
-        <svg width="15px" height="10px" viewBox="0 0 13 10">
-          <path d="M1,5 L11,5" />
-          <polyline points="8 1 12 5 8 9" />
-        </svg>
-      </button>
+      <a
+        href="/cv.pdf
+        "
+        target="_blank"
+        rel="noreferrer
+      "
+      >
+        <button className="cta">
+          <span>Download CV</span>
+          <svg width="15px" height="10px" viewBox="0 0 13 10">
+            <path d="M1,5 L11,5" />
+            <polyline points="8 1 12 5 8 9" />
+          </svg>
+        </button>
+      </a>
     </StyledWrapper>
   );
 };
