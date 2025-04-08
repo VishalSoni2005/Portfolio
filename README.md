@@ -52,9 +52,13 @@ my-portfolio/
 ├── public/
 ├── src/
 │   ├── components/
+|   |── Layout/
+|   |── constants/
 │   ├── pages/
 │   ├── assets/
 │   └── App.jsx
+  └── App.jsx
+|    
 ├── .env
 ├── tailwind.config.js
 ├── package.json
