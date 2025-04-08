@@ -1,5 +1,14 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+/* eslint-disable no-unused-vars */
+'use client';
+
+import { useState, useEffect, useRef, useCallback } from 'react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useInView,
+  useSpring,
+} from 'framer-motion';
 import CalendarHeatmap from 'react-calendar-heatmap';
 import 'react-calendar-heatmap/dist/styles.css';
 import {
@@ -8,10 +17,7 @@ import {
   FaHtml5,
   FaCss3Alt,
   FaJsSquare,
-  FaGithub,
   FaCode,
-  // FaHome,
-  FaChartBar,
   FaRobot,
   FaLock,
   FaVideo,
@@ -35,103 +41,149 @@ import {
   SiGooglegemini,
 } from 'react-icons/si';
 
-const Dashboard = () => {
-  //  const [activeSection, setActiveSection] = useState('overview');
-  //const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
-  const [skillsAnimated, setSkillsAnimated] = useState(false);
-  //const [scrollPosition, setScrollPosition] = useState(0);
-  const [visibleProjects, setVisibleProjects] = useState([]);
+import vishalWritesImage from '../assets/MscPreviewBlog.png';
+import togetherImage from '../assets/togetherPreview.png';
+import portfolioPreview from '../assets/portfolioPreview.png';
 
-  // Check if mobile
+
+// Custom hook for tracking active section
+const useActiveSection = (sectionIds, offset = 100) => {
+  const [activeSection, setActiveSection] = useState(sectionIds[0]);
+
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth < 768) {
-        // setSidebarOpen(false);
-      } else {
-        //  setSidebarOpen(true);
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+
+      // Find the section that is currently in view
+      const currentSection = sectionIds.find(sectionId => {
+        const section = document.getElementById(sectionId);
+        if (!section) return false;
+
+        const sectionTop = section.offsetTop - offset;
+        const sectionBottom = sectionTop + section.offsetHeight;
+
+        return scrollPosition >= sectionTop && scrollPosition < sectionBottom;
+      });
+
+      if (currentSection) {
+        setActiveSection(currentSection);
       }
     };
 
-    handleResize();
-    window.addEventListener('resize', handleResize);
+    // Initial check
+    handleScroll();
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+    // Add scroll event listener with passive option for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
-  // Handle scroll effects
-  useEffect(() => {
-    const handleScroll = () => {
-      const position = window.scrollY;
-      //setScrollPosition(position);
-
-      // Check which section is in view
-      const sections = document.querySelectorAll('section[id]');
-      sections.forEach(section => {
-        const sectionTop = section.offsetTop - 100;
-        const sectionHeight = section.offsetHeight;
-        if (position >= sectionTop && position < sectionTop + sectionHeight) {
-          // setActiveSection(section.getAttribute('id'));
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [sectionIds, offset]);
 
-  // Animate skills when in view
+  return activeSection;
+};
+
+// Custom hook for mobile detection
+const useIsMobile = (breakpoint = 768) => {
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        if (entries[0].isIntersecting) {
-          setSkillsAnimated(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
+    // Check if window is defined (browser environment)
+    if (typeof window !== 'undefined') {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < breakpoint);
+      };
 
-    const skillsSection = document.getElementById('skills');
-    if (skillsSection) {
-      observer.observe(skillsSection);
+      // Initial check
+      checkMobile();
+
+      // Add event listener for window resize
+      window.addEventListener('resize', checkMobile, { passive: true });
+
+      // Cleanup
+      return () => {
+        window.removeEventListener('resize', checkMobile);
+      };
     }
 
-    return () => {
-      if (skillsSection) {
-        observer.unobserve(skillsSection);
-      }
-    };
+    return undefined;
+  }, [breakpoint]);
+
+  return isMobile;
+};
+
+const Dashboard = () => {
+  const [navVisible, setNavVisible] = useState(false);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const isMobile = useIsMobile();
+
+  // Section refs for animations
+  const overviewRef = useRef(null);
+  const skillsRef = useRef(null);
+  const projectsRef = useRef(null);
+  const activityRef = useRef(null);
+
+  // Track active section
+  const sectionIds = ['overview', 'skills', 'projects', 'activity'];
+  const activeSection = useActiveSection(sectionIds);
+
+  // Scroll progress for parallax effects
+  const { scrollYProgress } = useScroll();
+  const smoothScrollProgress = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Parallax values for different elements
+  const headerParallax = useTransform(smoothScrollProgress, [0, 1], [0, -100]);
+  const skillsParallax = useTransform(smoothScrollProgress, [0, 1], [0, -50]);
+
+  // Scroll animations for each section
+  const skillsAnimRef = useRef(null);
+  const skillsInView = useInView(skillsAnimRef, {
+    once: false,
+    threshold: 0.15,
+    margin: '0px 0px -100px 0px',
+  });
+
+  const projectsAnimRef = useRef(null);
+  const projectsInView = useInView(projectsAnimRef, {
+    once: false,
+    threshold: 0.1,
+    margin: '0px 0px -100px 0px',
+  });
+
+  const activityAnimRef = useRef(null);
+  const activityInView = useInView(activityAnimRef, {
+    once: false,
+    threshold: 0.2,
+    margin: '0px 0px -100px 0px',
+  });
+
+  // Handle scroll for showing/hiding navigation
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+
+    // Show navigation after scrolling down a bit
+    if (currentScrollY > 100) {
+      setNavVisible(true);
+    } else {
+      setNavVisible(false);
+    }
+
+    setLastScrollY(currentScrollY);
   }, []);
 
-  // Animate projects when in view
+  // Add scroll event listener
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            setVisibleProjects(prev => [...prev, entry.target.id]);
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: '0px 0px -100px 0px' }
-    );
-
-    const projectElements = document.querySelectorAll('.project-card');
-    projectElements.forEach(el => {
-      observer.observe(el);
-    });
+    window.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      projectElements.forEach(el => {
-        observer.unobserve(el);
-      });
+      window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   // Coding activity data
   const codingData = [
@@ -200,10 +252,10 @@ const Dashboard = () => {
           icon: <SiTailwindcss size={24} color="#38B2AC" />,
         },
         {
-          name: "zustand",
+          name: 'zustand',
           level: 80,
           icon: <FaSatelliteDish size={24} color="#000000" />,
-        }
+        },
       ],
     },
     {
@@ -280,10 +332,10 @@ const Dashboard = () => {
           icon: <SiOpenai size={24} color="#412991" />,
         },
         {
-          name: "Gemini API",
+          name: 'Gemini API',
           level: 80,
           icon: <SiGooglegemini size={24} color="#FFFFFF" />,
-        }
+        },
       ],
     },
   ];
@@ -315,9 +367,9 @@ const Dashboard = () => {
         'MongoDB',
         'Express',
         'Gemini API',
-        "Context API"
+        'Context API',
       ],
-      image: 'https://placeholder.svg?height=300&width=500',
+      image: vishalWritesImage,
       icon: <FaRobot className="text-blue-500" size={24} />,
       color: 'bg-blue-500',
       link: '#',
@@ -338,14 +390,12 @@ const Dashboard = () => {
         'Socket.io',
         'Node.js',
         'Express',
-
         'zustand',
         'WebSockets',
-
         'MongoDB',
         'Encryption Libraries',
       ],
-      image: 'https://placeholder.svg?height=300&width=500',
+      image: togetherImage,
       icon: <FaLock className="text-green-500" size={24} />,
       color: 'bg-green-500',
       link: '#',
@@ -364,13 +414,12 @@ const Dashboard = () => {
       technologies: [
         'Next.js',
         'Tailwind CSS',
-        "AI Voice Agent",
-
+        'AI Voice Agent',
         'React',
         'Monaco Editor',
         'Node.js',
       ],
-      image: 'https://placeholder.svg?height=300&width=500',
+      image: portfolioPreview,
       icon: <FaVideo className="text-purple-500" size={24} />,
       color: 'bg-purple-500',
       link: '#',
@@ -389,26 +438,77 @@ const Dashboard = () => {
       value: '250+',
       icon: <FaStar size={24} className="text-yellow-500" />,
     },
-    
   ];
 
-  // Scroll to section
-  const scrollToSection = sectionId => {
+  // Enhanced scroll to section with smooth animation
+  const scrollToSection = useCallback(sectionId => {
     const section = document.getElementById(sectionId);
     if (section) {
+      // Calculate the exact position with offset
+      const offsetTop =
+        section.getBoundingClientRect().top + window.pageYOffset - 80;
+
+      // Use smooth scrolling with animation
       window.scrollTo({
-        top: section.offsetTop - 80,
+        top: offsetTop,
         behavior: 'smooth',
       });
-      // setActiveSection(sectionId);
-      if (isMobile) {
-        //setSidebarOpen(false);
-      }
     }
-  };
+  }, []);
 
   return (
     <div className="flex min-h-screen mt-16 bg-gray-50">
+      {/* Calendar Heatmap Styles */}
+      <style>
+        {`
+          .react-calendar-heatmap .color-empty {
+            fill: #f0f0f0;
+          }
+          .react-calendar-heatmap .color-scale-1 {
+            fill: #c6e48b;
+          }
+          .react-calendar-heatmap .color-scale-2 {
+            fill: #7bc96f;
+          }
+          .react-calendar-heatmap .color-scale-3 {
+            fill: #239a3b;
+          }
+          .react-calendar-heatmap .color-scale-4 {
+            fill: #196127;
+          }
+          .react-calendar-heatmap text {
+            font-size: 10px;
+            fill: #767676;
+          }
+          .react-calendar-heatmap rect:hover {
+            stroke: #555;
+            stroke-width: 1px;
+          }
+        `}
+      </style>
+
+      {/* Floating Navigation */}
+      <nav
+        className={`fixed right-6 top-1/2 transform -translate-y-1/2 z-50 transition-opacity duration-500 ${
+          navVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <div className="flex flex-col items-center space-y-4 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-lg">
+          {sectionIds.map(sectionId => (
+            <button
+              key={sectionId}
+              onClick={() => scrollToSection(sectionId)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                activeSection === sectionId
+                  ? 'bg-blue-600 scale-125'
+                  : 'bg-gray-300 hover:bg-gray-400'
+              }`}
+              aria-label={`Scroll to ${sectionId} section`}
+            />
+          ))}
+        </div>
+      </nav>
+
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Content */}
@@ -416,53 +516,89 @@ const Dashboard = () => {
           {/* Overview Section */}
           <motion.section
             id="overview"
+            ref={overviewRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.6, 0.0, 0.3, 1] }}
-            className="py-16 px-4 md:px-8"
+            className="py-16 px-4 md:px-8 relative"
           >
-            <div className="max-w-6xl mx-auto">
+            <motion.div
+              className="max-w-6xl mx-auto"
+              style={{ y: headerParallax }}
+            >
               <div className="bg-gradient-to-r from-blue-500 to-purple-600 rounded-3xl shadow-xl overflow-hidden">
                 <div className="md:flex">
                   <div className="md:w-1/2 p-8 md:p-12 text-white">
-                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                    <motion.h1
+                      className="text-4xl md:text-5xl font-bold mb-4"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                    >
                       Hi, I am{' '}
                       <span className="text-yellow-300">Vishal Soni</span>
-                    </h1>
-                    <p className="text-xl mb-6 text-blue-100">
+                    </motion.h1>
+                    <motion.p
+                      className="text-xl mb-6 text-blue-100"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                    >
                       Full Stack Developer specializing in modern web
                       applications
-                    </p>
-                    <p className="mb-8 text-blue-100">
+                    </motion.p>
+                    <motion.p
+                      className="mb-8 text-blue-100"
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.6 }}
+                    >
                       I build scalable, secure, and innovative solutions using
                       cutting-edge technologies. My expertise spans from
                       frontend development with React to backend systems with
                       Node.js.
-                    </p>
-                    <div className="flex flex-wrap gap-3">
+                    </motion.p>
+                    <motion.div
+                      className="flex flex-wrap gap-3"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.8 }}
+                    >
                       <button
                         onClick={() => scrollToSection('projects')}
-                        className="px-6 py-3 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors"
+                        className="px-6 py-3 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors hover:scale-105 transform duration-300"
                       >
                         View Projects
                       </button>
                       <button
-                        onClick={() => scrollToSection('contact')}
-                        className="px-6 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-800 transition-colors"
+                        onClick={() => scrollToSection('activity')}
+                        className="px-6 py-3 bg-blue-700 text-white rounded-lg font-medium hover:bg-blue-800 transition-colors hover:scale-105 transform duration-300"
                       >
-                        Contact Me
+                        View Activity
                       </button>
-                    </div>
+                    </motion.div>
                   </div>
                   <div className="md:w-1/2 bg-white p-8 md:p-12">
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                    <motion.h2
+                      className="text-2xl font-bold text-gray-800 mb-6"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                    >
                       Key Metrics
-                    </h2>
+                    </motion.h2>
                     <div className="grid grid-cols-2 gap-4">
                       {stats.map((stat, index) => (
-                        <div
+                        <motion.div
                           key={index}
                           className="bg-gray-50 rounded-xl p-4 flex items-center space-x-4 hover:shadow-md transition-shadow"
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{
+                            duration: 0.5,
+                            delay: 0.4 + index * 0.1,
+                          }}
+                          whileHover={{ scale: 1.03 }}
                         >
                           <div className="rounded-full bg-gray-100 p-3">
                             {stat.icon}
@@ -475,11 +611,16 @@ const Dashboard = () => {
                               {stat.label}
                             </div>
                           </div>
-                        </div>
+                        </motion.div>
                       ))}
                     </div>
 
-                    <div className="mt-8">
+                    <motion.div
+                      className="mt-8"
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.7 }}
+                    >
                       <h3 className="text-lg font-semibold text-gray-800 mb-3">
                         Specialized In
                       </h3>
@@ -491,15 +632,22 @@ const Dashboard = () => {
                           'AI Integration',
                           'End-to-End Encryption',
                         ].map((tech, i) => (
-                          <span
+                          <motion.span
                             key={i}
                             className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.3, delay: 0.8 + i * 0.1 }}
+                            whileHover={{
+                              scale: 1.1,
+                              backgroundColor: '#e0e7ff',
+                            }}
                           >
                             {tech}
-                          </span>
+                          </motion.span>
                         ))}
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
                 </div>
               </div>
@@ -512,18 +660,25 @@ const Dashboard = () => {
                   </h2>
                   <button
                     onClick={() => scrollToSection('projects')}
-                    className="text-blue-600 hover:text-blue-800 font-medium flex items-center"
+                    className="text-blue-600 hover:text-blue-800 font-medium flex items-center group"
                   >
                     View All Projects
-                    <FaArrowRight className="ml-2" />
+                    <FaArrowRight className="ml-2 transform group-hover:translate-x-1 transition-transform duration-300" />
                   </button>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {projects.map(project => (
-                    <div
+                  {projects.map((project, index) => (
+                    <motion.div
                       key={project.id}
                       className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+                      initial={{ opacity: 0, y: 30 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: 0.2 + index * 0.1 }}
+                      whileHover={{
+                        y: -8,
+                        boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
+                      }}
                     >
                       <div className={`h-2 ${project.color}`}></div>
                       <div className="p-6">
@@ -559,59 +714,96 @@ const Dashboard = () => {
                         </div>
                         <a
                           href={project.link}
-                          className="text-blue-500 hover:text-blue-700 font-medium text-sm inline-flex items-center"
+                          className="text-blue-500 hover:text-blue-700 font-medium text-sm inline-flex items-center group"
                         >
                           Learn More
-                          <FaArrowRight className="ml-1 h-3 w-3" />
+                          <FaArrowRight className="ml-1 h-3 w-3 transform group-hover:translate-x-1 transition-transform duration-300" />
                         </a>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.section>
 
           {/* Skills Section */}
-          <section id="skills" className="py-16 px-4 md:px-8 bg-gray-50">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-                My Skills
-              </h2>
-              <p className="text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-                I have developed expertise in various technologies across the
-                full stack development spectrum.
-              </p>
+          <section
+            id="skills"
+            ref={skillsRef}
+            className="py-16 px-4 md:px-8 bg-gray-50 relative"
+          >
+            <div ref={skillsAnimRef} className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={
+                  skillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                }
+                transition={{ duration: 0.8 }}
+                className="text-center"
+              >
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  My Skills
+                </h2>
+                <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
+                  I have developed expertise in various technologies across the
+                  full stack development spectrum.
+                </p>
+              </motion.div>
 
               {/* Skill Cloud */}
-              <div className="bg-white rounded-xl shadow-lg p-8 mb-12">
+              <motion.div
+                className="bg-white rounded-xl shadow-lg p-8 mb-12"
+                initial={{ opacity: 0, y: 30 }}
+                animate={
+                  skillsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                }
+                transition={{ duration: 0.8, delay: 0.2 }}
+                style={{ y: skillsParallax }}
+              >
                 <div className="flex flex-wrap justify-center gap-8 mb-8">
                   {allSkills
                     .sort((a, b) => b.level - a.level)
                     .slice(0, 8)
                     .map((skill, index) => (
-                      <div
+                      <motion.div
                         key={index}
-                        className={`flex flex-col items-center gap-2 transform transition-all duration-700 ease-in-out
-                          ${skillsAnimated ? 'scale-100 opacity-100' : 'scale-90 opacity-0'}`}
-                        style={{ transitionDelay: `${index * 100}ms` }}
+                        className="flex flex-col items-center gap-2"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={
+                          skillsInView
+                            ? { opacity: 1, scale: 1 }
+                            : { opacity: 0, scale: 0.8 }
+                        }
+                        transition={{ duration: 0.6, delay: 0.3 + index * 0.1 }}
+                        whileHover={{ scale: 1.05 }}
                       >
-                        <div className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center">
+                        <motion.div
+                          className="h-16 w-16 rounded-full bg-gray-100 flex items-center justify-center"
+                          whileHover={{ rotate: 10 }}
+                        >
                           {skill.icon}
-                        </div>
+                        </motion.div>
                         <span className="text-lg font-medium text-gray-700">
                           {skill.name}
                         </span>
                         <div className="w-full bg-gray-200 rounded-full h-1.5">
-                          <div
-                            className="bg-blue-600 h-1.5 rounded-full transition-all duration-1000 ease-out"
-                            style={{
-                              width: skillsAnimated ? `${skill.level}%` : '0%',
-                              transitionDelay: `${index * 150}ms`,
+                          <motion.div
+                            className="bg-blue-600 h-1.5 rounded-full"
+                            initial={{ width: 0 }}
+                            animate={
+                              skillsInView
+                                ? { width: `${skill.level}%` }
+                                : { width: 0 }
+                            }
+                            transition={{
+                              duration: 1,
+                              delay: 0.4 + index * 0.1,
+                              ease: 'easeOut',
                             }}
-                          ></div>
+                          />
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
                 </div>
 
@@ -619,23 +811,29 @@ const Dashboard = () => {
                   {allSkills
                     .sort(() => 0.5 - Math.random())
                     .map((skill, index) => (
-                      <div
+                      <motion.div
                         key={index}
                         className={`px-3 py-2 rounded-full text-white font-medium 
                           ${
                             skill.level > 90
                               ? 'bg-blue-600'
                               : skill.level > 80
-                                ? 'bg-blue-500'
-                                : skill.level > 70
-                                  ? 'bg-blue-400'
-                                  : 'bg-blue-300'
-                          } 
-                          transform transition-all duration-700 ease-in-out
-                          ${skillsAnimated ? 'scale-100 opacity-100' : 'scale-90 opacity-0'}`}
-                        style={{
-                          transitionDelay: `${index * 50}ms`,
+                              ? 'bg-blue-500'
+                              : skill.level > 70
+                              ? 'bg-blue-400'
+                              : 'bg-blue-300'
+                          }`}
+                        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                        animate={
+                          skillsInView
+                            ? { opacity: 1, scale: 1, y: 0 }
+                            : { opacity: 0, scale: 0.8, y: 20 }
+                        }
+                        transition={{
+                          duration: 0.5,
+                          delay: 0.5 + index * 0.02,
                         }}
+                        whileHover={{ scale: 1.1, y: -5 }}
                       >
                         <div className="flex items-center space-x-1">
                           {skill.icon && (
@@ -643,17 +841,28 @@ const Dashboard = () => {
                           )}
                           <span>{skill.name}</span>
                         </div>
-                      </div>
+                      </motion.div>
                     ))}
                 </div>
-              </div>
+              </motion.div>
 
               {/* Skill Categories */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {skillCategories.map((category, catIndex) => (
-                  <div
+                  <motion.div
                     key={catIndex}
                     className="bg-white rounded-xl shadow-sm p-6"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={
+                      skillsInView
+                        ? { opacity: 1, y: 0 }
+                        : { opacity: 0, y: 30 }
+                    }
+                    transition={{ duration: 0.7, delay: 0.2 + catIndex * 0.15 }}
+                    whileHover={{
+                      y: -5,
+                      boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1)',
+                    }}
                   >
                     <h3 className="text-xl font-bold text-gray-800 mb-4">
                       {category.name}
@@ -673,52 +882,101 @@ const Dashboard = () => {
                             </span>
                           </div>
                           <div className="w-full bg-gray-200 rounded-full h-2">
-                            <div
-                              className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full transition-all duration-1000 ease-out"
-                              style={{
-                                width: skillsAnimated
-                                  ? `${skill.level}%`
-                                  : '0%',
-                                transitionDelay: `${skillIndex * 100}ms`,
+                            <motion.div
+                              className="bg-gradient-to-r from-blue-500 to-purple-600 h-2 rounded-full"
+                              initial={{ width: 0 }}
+                              animate={
+                                skillsInView
+                                  ? { width: `${skill.level}%` }
+                                  : { width: 0 }
+                              }
+                              transition={{
+                                duration: 1,
+                                delay: 0.3 + catIndex * 0.1 + skillIndex * 0.05,
+                                ease: 'easeOut',
                               }}
-                            ></div>
+                            />
                           </div>
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </section>
 
           {/* Projects Section */}
-          <section id="projects" className="py-16 px-4 md:px-8">
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-                My Projects
-              </h2>
-              <p className="text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-                Here are some of the key projects I haveve worked on. Each
-                project demonstrates different skills and technologies.
-              </p>
+          <section
+            id="projects"
+            ref={projectsRef}
+            className="py-16 px-4 md:px-8"
+          >
+            <div ref={projectsAnimRef} className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={
+                  projectsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                }
+                transition={{ duration: 0.8 }}
+                className="text-center"
+              >
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  My Projects
+                </h2>
+                <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
+                  Here are some of the key projects I have worked on. Each
+                  project demonstrates different skills and technologies.
+                </p>
+              </motion.div>
 
-              {projects.map(project => (
-                <div
+              {projects.map((project, index) => (
+                <motion.div
                   key={project.id}
                   id={project.id}
-                  className={`project-card bg-white rounded-xl shadow-lg overflow-hidden mb-12 transform transition-all duration-700 ease-out
-                    ${visibleProjects.includes(project.id) ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'}`}
+                  className="project-card bg-white rounded-xl shadow-lg overflow-hidden mb-12"
+                  initial={{ opacity: 0, y: 50 }}
+                  animate={
+                    projectsInView
+                      ? { opacity: 1, y: 0 }
+                      : { opacity: 0, y: 50 }
+                  }
+                  transition={{
+                    duration: 0.8,
+                    delay: 0.2 + index * 0.2,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="md:flex">
-                    <div className="md:w-2/5 bg-gray-100 flex items-center justify-center p-8">
-                      <div
+                    <motion.div
+                      className="md:w-2/5 bg-gray-100 flex items-center justify-center p-8"
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={
+                        projectsInView
+                          ? { opacity: 1, x: 0 }
+                          : { opacity: 0, x: -30 }
+                      }
+                      transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
+                    >
+                      <motion.div
                         className={`w-20 h-20 rounded-full ${project.color} flex items-center justify-center text-white`}
+                        whileHover={{ rotate: 10, scale: 1.1 }}
+                        transition={{ type: 'spring', stiffness: 300 }}
                       >
                         {project.icon}
-                      </div>
-                    </div>
-                    <div className="md:w-3/5 p-8">
+                      </motion.div>
+                    </motion.div>
+                    <motion.div
+                      className="md:w-3/5 p-8"
+                      initial={{ opacity: 0, x: 30 }}
+                      animate={
+                        projectsInView
+                          ? { opacity: 1, x: 0 }
+                          : { opacity: 0, x: 30 }
+                      }
+                      transition={{ duration: 0.6, delay: 0.4 + index * 0.2 }}
+                    >
                       <h3 className="text-2xl font-bold text-gray-800 mb-3">
                         {project.title}
                       </h3>
@@ -731,7 +989,21 @@ const Dashboard = () => {
                       </h4>
                       <ul className="list-disc pl-5 mb-4 text-gray-600 space-y-1">
                         {project.features.map((feature, idx) => (
-                          <li key={idx}>{feature}</li>
+                          <motion.li
+                            key={idx}
+                            initial={{ opacity: 0, x: 20 }}
+                            animate={
+                              projectsInView
+                                ? { opacity: 1, x: 0 }
+                                : { opacity: 0, x: 20 }
+                            }
+                            transition={{
+                              duration: 0.4,
+                              delay: 0.6 + index * 0.2 + idx * 0.1,
+                            }}
+                          >
+                            {feature}
+                          </motion.li>
                         ))}
                       </ul>
 
@@ -740,32 +1012,50 @@ const Dashboard = () => {
                       </h4>
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.technologies.map((tech, idx) => (
-                          <span
+                          <motion.span
                             key={idx}
                             className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full"
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={
+                              projectsInView
+                                ? { opacity: 1, scale: 1 }
+                                : { opacity: 0, scale: 0.8 }
+                            }
+                            transition={{
+                              duration: 0.4,
+                              delay: 0.7 + index * 0.2 + idx * 0.05,
+                            }}
+                            whileHover={{
+                              scale: 1.1,
+                              backgroundColor: '#f3f4f6',
+                            }}
                           >
                             {tech}
-                          </span>
+                          </motion.span>
                         ))}
                       </div>
 
                       <div className="flex space-x-3">
-                        <a
+                        <motion.a
                           href={project.link}
                           className="px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg font-medium hover:opacity-90 transition-opacity"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
                           View Project
-                        </a>
-                        <a
+                        </motion.a>
+                        <motion.a
                           href="#"
                           className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-50 transition-colors"
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
                         >
                           Source Code
-                        </a>
+                        </motion.a>
                       </div>
-                    </div>
+                    </motion.div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </section>
@@ -773,18 +1063,39 @@ const Dashboard = () => {
           {/* Activity Section */}
           <motion.section
             id="activity"
+            ref={activityRef}
             className="py-16 px-4 md:px-8 bg-gray-50"
           >
-            <div className="max-w-6xl mx-auto">
-              <h2 className="text-3xl font-bold text-gray-800 mb-2 text-center">
-                Coding Activity
-              </h2>
-              <p className="text-gray-600 mb-12 text-center max-w-3xl mx-auto">
-                My GitHub contribution activity over the past year shows my
-                consistent dedication to coding.
-              </p>
+            <div ref={activityAnimRef} className="max-w-6xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                animate={
+                  activityInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                }
+                transition={{ duration: 0.8 }}
+                className="text-center"
+              >
+                <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                  Coding Activity
+                </h2>
+                <p className="text-gray-600 mb-12 max-w-3xl mx-auto">
+                  My GitHub contribution activity over the past year shows my
+                  consistent dedication to coding.
+                </p>
+              </motion.div>
 
-              <div className="bg-white rounded-xl shadow-lg p-8">
+              <motion.div
+                className="bg-white rounded-xl shadow-lg p-8"
+                initial={{ opacity: 0, y: 30 }}
+                animate={
+                  activityInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }
+                }
+                transition={{ duration: 0.8, delay: 0.2 }}
+                whileHover={{
+                  y: -5,
+                  boxShadow: '0 15px 30px -5px rgba(0, 0, 0, 0.1)',
+                }}
+              >
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold text-gray-800">
                     GitHub Contributions
@@ -797,7 +1108,12 @@ const Dashboard = () => {
                   </div>
                 </div>
 
-                <div className="mb-8">
+                <motion.div
+                  className="mb-8"
+                  initial={{ opacity: 0 }}
+                  animate={activityInView ? { opacity: 1 } : { opacity: 0 }}
+                  transition={{ duration: 1, delay: 0.4 }}
+                >
                   <CalendarHeatmap
                     startDate={
                       new Date(
@@ -823,25 +1139,7 @@ const Dashboard = () => {
                     gutterSize={3}
                     showWeekdayLabels={true}
                   />
-                </div>
-
-                <style>{`
-                  :global(.react-calendar-heatmap .color-empty) {
-                    fill: green;
-                  }
-                  :global(.react-calendar-heatmap .color-scale-1) {
-                    fill: green;
-                  }
-                  :global(.react-calendar-heatmap .color-scale-2) {
-                    fill: #7bc96f;
-                  }
-                  :global(.react-calendar-heatmap .color-scale-3) {
-                    fill: #239a3b;
-                  }
-                  :global(.react-calendar-heatmap .color-scale-4) {
-                    fill: #196127;
-                  }
-                `}</style>
+                </motion.div>
 
                 <div className="flex justify-between items-center">
                   <div className="flex space-x-2">
@@ -856,121 +1154,16 @@ const Dashboard = () => {
                     <span className="text-sm text-gray-600">More</span>
                   </div>
 
-                  <a
+                  <motion.a
                     href="#"
-                    className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center"
+                    className="text-blue-600 hover:text-blue-800 font-medium text-sm flex items-center group"
+                    whileHover={{ x: 3 }}
                   >
                     View on GitHub
-                    <FaArrowRight className="ml-1 h-3 w-3" />
-                  </a>
+                    <FaArrowRight className="ml-1 h-3 w-3 transform group-hover:translate-x-1 transition-transform duration-300" />
+                  </motion.a>
                 </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-                <div className="bg-white rounded-xl shadow-sm p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="rounded-full bg-blue-100 p-3 text-blue-500">
-                      <FaCode size={20} />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-800">
-                      Languages
-                    </h3>
-                  </div>
-                  <div className="space-y-3">
-                    {[
-                      { name: 'JavaScript', percentage: 45 },
-                      { name: 'TypeScript', percentage: 30 },
-                      { name: 'HTML/CSS', percentage: 15 },
-                      { name: 'Python', percentage: 10 },
-                    ].map((lang, i) => (
-                      <div key={i} className="space-y-1">
-                        <div className="flex justify-between text-sm">
-                          <span className="font-medium text-gray-700">
-                            {lang.name}
-                          </span>
-                          <span className="text-gray-500">
-                            {lang.percentage}%
-                          </span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div
-                            className="bg-blue-500 h-2 rounded-full"
-                            style={{ width: `${lang.percentage}%` }}
-                          ></div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-xl shadow-sm p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="rounded-full bg-purple-100 p-3 text-purple-500">
-                      <FaGithub size={20} />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-800">
-                      Repositories
-                    </h3>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      { name: 'ai-blog-platform', stars: 120, forks: 45 },
-                      { name: 'encrypted-chat-app', stars: 85, forks: 32 },
-                      {
-                        name: 'remote-interview-platform',
-                        stars: 65,
-                        forks: 28,
-                      },
-                    ].map((repo, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between items-center p-3 bg-gray-50 rounded-lg"
-                      >
-                        <span className="font-medium text-gray-700">
-                          {repo.name}
-                        </span>
-                        <div className="flex space-x-3 text-sm text-gray-500">
-                          <span className="flex items-center">
-                            <FaStar className="mr-1" /> {repo.stars}
-                          </span>
-                          <span className="flex items-center">
-                            <FaCode className="mr-1" /> {repo.forks}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="bg-white rounded-xl shadow-sm p-6">
-                  <div className="flex items-center space-x-3 mb-4">
-                    <div className="rounded-full bg-green-100 p-3 text-green-500">
-                      <FaChartBar size={20} />
-                    </div>
-                    <h3 className="text-xl font-bold text-gray-800">
-                      Statistics
-                    </h3>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      { label: 'Total Commits', value: '1,250+' },
-                      { label: 'Pull Requests', value: '85' },
-                      { label: 'Issues Closed', value: '120' },
-                      { label: 'Code Reviews', value: '95' },
-                    ].map((stat, i) => (
-                      <div
-                        key={i}
-                        className="flex justify-between items-center"
-                      >
-                        <span className="text-gray-600">{stat.label}</span>
-                        <span className="font-bold text-gray-800">
-                          {stat.value}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
+              </motion.div>
             </div>
           </motion.section>
         </main>

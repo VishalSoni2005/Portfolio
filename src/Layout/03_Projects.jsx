@@ -2,8 +2,9 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { GitHub, ExternalLink, ArrowRight, Award, Layers } from 'react-feather';
 
-import vishalWritesImage from '../assets/image.png';
-import togetherImage from '../assets/together.png';
+import vishalWritesImage from '../assets/MscPreviewBlog.png';
+import togetherImage from '../assets/togetherPreview.png';
+import portfolioPreview from '../assets/portfolioPreview.png';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -73,7 +74,7 @@ const Projects = () => {
       title: 'Portfolio Website',
       description:
         'A portfolio website to showcase my work and skills. Built with React and Tailwind CSS.',
-      image: '',
+      image: portfolioPreview,
       features: [
         'Responsive Design',
         'Interactive Components',
