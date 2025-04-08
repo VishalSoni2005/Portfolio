@@ -56,10 +56,9 @@ my-portfolio/
 |   |── constants/
 │   ├── pages/
 │   ├── assets/
-│   └── App.jsx
-  └── App.jsx
-|    
-├── .env
+│   ├── app.jsx
+│   ├── main.css
+│   └── mainjsx
 ├── tailwind.config.js
 ├── package.json
 └── README.md
