@@ -430,12 +430,12 @@ const Dashboard = () => {
   const stats = [
     {
       label: 'Projects Completed',
-      value: '3+',
+      value: '6+',
       icon: <FaCode size={24} className="text-blue-500" />,
     },
     {
       label: 'Leetcode Problems Solved',
-      value: '250+',
+      value: '150+',
       icon: <FaStar size={24} className="text-yellow-500" />,
     },
   ];
