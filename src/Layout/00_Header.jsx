@@ -80,7 +80,6 @@ export default function Header() {
           className="absolute top-full right-4 w-[90%] md:w-[50%] bg-white shadow-lg rounded-lg flex flex-col p-3 space-y-1 transition-all duration-300"
         >
           {[
-            { to: '/', label: 'Home' },
             { to: '/about', label: 'About' },
             { to: '/blog', label: 'Blog' },
             { to: '/contact', label: 'Contact' },
