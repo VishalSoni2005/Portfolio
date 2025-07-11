@@ -44,6 +44,7 @@ import {
 import vishalWritesImage from '../assets/MscPreviewBlog.png';
 import togetherImage from '../assets/togetherPreview.png';
 import portfolioPreview from '../assets/portfolioPreview.png';
+import { Link } from 'react-router-dom';
 
 
 // Custom hook for tracking active section
@@ -125,7 +126,7 @@ const Dashboard = () => {
   const activityRef = useRef(null);
 
   // Track active section
-  const sectionIds = ['overview', 'skills', 'projects', 'activity'];
+  const sectionIds = ['overview', 'skills',  'activity'];
   const activeSection = useActiveSection(sectionIds);
 
   // Scroll progress for parallax effects
@@ -148,12 +149,12 @@ const Dashboard = () => {
     margin: '0px 0px -100px 0px',
   });
 
-  const projectsAnimRef = useRef(null);
-  const projectsInView = useInView(projectsAnimRef, {
-    once: false,
-    threshold: 0.1,
-    margin: '0px 0px -100px 0px',
-  });
+  // const projectsAnimRef = useRef(null);
+  // const projectsInView = useInView(projectsAnimRef, {
+  //   once: false,
+  //   threshold: 0.1,
+  //   margin: '0px 0px -100px 0px',
+  // });
 
   const activityAnimRef = useRef(null);
   const activityInView = useInView(activityAnimRef, {
@@ -372,7 +373,7 @@ const Dashboard = () => {
       image: vishalWritesImage,
       icon: <FaRobot className="text-blue-500" size={24} />,
       color: 'bg-blue-500',
-      link: '#',
+      link: 'https://github.com/VishalSoni2005/AI-Powered-Blog-Website.git',
     },
     {
       id: 'project2',
@@ -398,7 +399,7 @@ const Dashboard = () => {
       image: togetherImage,
       icon: <FaLock className="text-green-500" size={24} />,
       color: 'bg-green-500',
-      link: '#',
+      link: 'https://github.com/VishalSoni2005/Chat-Application.git',
     },
     {
       id: 'project3',
@@ -422,7 +423,7 @@ const Dashboard = () => {
       image: portfolioPreview,
       icon: <FaVideo className="text-purple-500" size={24} />,
       color: 'bg-purple-500',
-      link: '#',
+      link: 'https://github.com/VishalSoni2005/IntelliHire.git',
     },
   ];
 
@@ -568,7 +569,7 @@ const Dashboard = () => {
                         onClick={() => scrollToSection('projects')}
                         className="px-6 py-3 bg-white text-blue-600 rounded-lg font-medium hover:bg-blue-50 transition-colors hover:scale-105 transform duration-300"
                       >
-                        View Projects
+                        <Link to="/contact" > Contact Me </Link>
                       </button>
                       <button
                         onClick={() => scrollToSection('activity')}
@@ -628,7 +629,10 @@ const Dashboard = () => {
                         {[
                           'React',
                           'Node.js',
-                          'WebRTC',
+                          'Next.js',
+                          'Tailwind CSS',
+                          "Socket.io",
+                          'state management',
                           'AI Integration',
                           'End-to-End Encryption',
                         ].map((tech, i) => (
@@ -716,7 +720,7 @@ const Dashboard = () => {
                           href={project.link}
                           className="text-blue-500 hover:text-blue-700 font-medium text-sm inline-flex items-center group"
                         >
-                          Learn More
+                          Check it out
                           <FaArrowRight className="ml-1 h-3 w-3 transform group-hover:translate-x-1 transition-transform duration-300" />
                         </a>
                       </div>
@@ -907,7 +911,7 @@ const Dashboard = () => {
           </section>
 
           {/* Projects Section */}
-          <section
+          {/* <section
             id="projects"
             ref={projectsRef}
             className="py-16 px-4 md:px-8"
@@ -1058,7 +1062,7 @@ const Dashboard = () => {
                 </motion.div>
               ))}
             </div>
-          </section>
+          </section> */}
 
           {/* Activity Section */}
           <motion.section

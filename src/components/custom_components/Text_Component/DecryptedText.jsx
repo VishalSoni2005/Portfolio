@@ -19,7 +19,7 @@ import propTypes from 'prop-types';
  */
 export default function DecryptedText({
   text,
-  speed = 100,
+  speed = 50,
   maxIterations = 20,
   sequential = false,
   revealDirection = 'start',

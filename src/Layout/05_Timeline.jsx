@@ -84,7 +84,7 @@ export default function EnhancedEducationTimeline() {
                       <div className="flex items-center mt-4">
                         <Award className="h-5 w-5 text-amber-500 mr-2" />
                         <span className="font-medium text-gray-900">
-                          CGPA: 8.0
+                          CGPA: 7.4
                         </span>
                         <span className="text-sm text-gray-500 ml-2">
                           (Till 4th Semester)

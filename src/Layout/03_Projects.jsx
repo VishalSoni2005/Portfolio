@@ -1,10 +1,13 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { GitHub, ExternalLink, ArrowRight, Award, Layers } from 'react-feather';
+import { GitHub, ArrowRight, Award, Layers } from 'react-feather';
 
 import vishalWritesImage from '../assets/MscPreviewBlog.png';
 import togetherImage from '../assets/togetherPreview.png';
 import portfolioPreview from '../assets/portfolioPreview.png';
+import intelliHireImage from '../assets/ih.png';
+import lakhiJewelsImage from '../assets/lj.png';
+import fitstartsImage from '../assets/fs.png';
 
 const Projects = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -34,7 +37,67 @@ const Projects = () => {
         'Tailwind CSS',
       ],
       github: 'https://github.com/VishalSoni2005/AI-Powered-Blog-Website.git',
-      demo: '#',
+      // demo: '#',
+    },
+    {
+      title: 'IntelliHire - AI Remote Interview Platform',
+      description:
+        'An AI-powered remote interview platform built using Next.js, integrated with Vapi voice agents and Gemini API for dynamic question generation and voice interaction. IntelliHire enables recruiters to conduct mock interviews, assign coding questions, and assess candidates remotely with a modern and intuitive UI.',
+      image: intelliHireImage, // Replace with your actual image import
+      features: [
+        'AI-Generated Interview Questions (Gemini API)',
+        'Voice-Enabled Interviews (Vapi Integration)',
+        'Mock Interview Scheduling',
+        'Real-Time Voice Agent Interaction',
+        'Code Assessment & Assignment System',
+        'Secure Authentication & Routing',
+        'Modern UI with ShadCN & Tailwind',
+        'Responsive Design',
+      ],
+      techStack: [
+        'Next.js (TypeScript)',
+        'React',
+        'Tailwind CSS',
+        'ShadCN UI',
+        'Vapi Voice API',
+        'Gemini AI API',
+        'React Hook Form',
+        'JWT Authentication',
+
+        'Firebase',
+
+        'Zod',
+      ],
+      github: 'https://github.com/VishalSoni2005/IntelliHire.git',
+      // demo: '#', // Add your live URL if deployed
+    },
+    {
+      title: 'Lakhi Jewellers Invoice Management System',
+      description:
+        'A full-featured SaaS platform designed for jewelry businesses to manage sales, customers, invoices, and payments. Built with Next.js and TypeScript, it includes dynamic PDF invoice generation, KPIs for performance tracking, and a PostgreSQL-backed database for scalable data management.',
+      image: lakhiJewelsImage, // Replace with your actual image import
+      features: [
+        'Customer & Invoice Management',
+        'Dynamic PDF Invoice Generation (PDF.js)',
+        'Authenticated & Protected Routes',
+        'PostgreSQL Data Management',
+        'Sales & KPI Dashboards',
+        'Pending Bill Tracker',
+        'Business Performance Monitoring',
+        'Responsive and Modern UI',
+      ],
+      techStack: [
+        'Next.js (TypeScript)',
+        'Node.js',
+        'Express.js',
+        'PostgreSQL',
+        'Tailwind CSS',
+        'PDF.js',
+        'JWT Authentication',
+        'Prisma ORM',
+      ],
+      github: 'https://github.com/VishalSoni2005/SaaS-LJ.git', // Replace if needed
+      // demo: '#', // Add your live link if deployed
     },
     {
       title: 'Together Chat App',
@@ -67,7 +130,36 @@ const Projects = () => {
         'JWT',
       ],
       github: 'https://github.com/VishalSoni2005/Chat-Application.git',
-      demo: '#',
+      // demo: '#',
+    },
+    {
+      title: 'FitStarts AI Fitness Tracker and Predictor',
+      description:
+        'An AI-powered fitness web app built with a modern design using Next.js, enabling users to input body metrics like waist, biceps, and more. It uses Gemini AI to predict achievable goals within a selected timeframe. The platform also includes educational resources, a shopping section, and a subscription system tailored for fitness enthusiasts.',
+      image: fitstartsImage, // Replace with your actual image import
+      features: [
+        'AI-Powered Fitness Prediction (Gemini AI)',
+        'User Input Analysis (Waist, Biceps, etc.)',
+        'Goal Tracking System',
+        'Modern Education Section',
+        'Gym Shopping Section',
+        'Subscription Plans',
+        'Authentication & Protected Routes',
+        'Responsive & Clean UI',
+      ],
+      techStack: [
+        'Next.js',
+        'React',
+        'Tailwind CSS',
+        'Gemini AI API',
+        'MongoDB',
+        'JWT Authentication',
+        'Node.js',
+        'Express.js',
+      ],
+      github:
+        'https://github.com/VishalSoni2005/AI-Powered-Gym-Fitness-Prediction.git',
+      // demo: '#', // Add link if deployed
     },
 
     {
@@ -160,10 +252,7 @@ const Projects = () => {
                 >
                   <div className="relative group w-full h-72 sm:h-96 md:h-[32rem] overflow-hidden rounded-xl shadow-lg">
                     <img
-                      src={
-                        projectDetails[activeTab].image
-                      }
-
+                      src={projectDetails[activeTab].image}
                       alt={projectDetails[activeTab].title}
                       className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-105"
                     />
@@ -177,14 +266,14 @@ const Projects = () => {
                         >
                           <GitHub size={20} />
                         </a>
-                        <a
+                        {/* <a
                           href={projectDetails[activeTab].demo}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="p-3 bg-white rounded-full hover:bg-teal-500 hover:text-white transition-colors duration-300 shadow-lg"
                         >
                           <ExternalLink size={20} />
-                        </a>
+                        </a> */}
                       </div>
                     </div>
                     <div className="absolute top-4 right-4 bg-white px-3 py-1 rounded-full shadow-md text-xs font-medium text-blue-600 flex items-center">
@@ -207,10 +296,17 @@ const Projects = () => {
                       {activeTab === 0
                         ? 'Web App'
                         : activeTab === 1
-                        ? 'Enterprise'
+                        ? 'AI Agent'
                         : activeTab === 2
-                        ? 'Portfolio'
-                        : 'Blog'}
+                        ? 'Enterprise App'
+                        : activeTab === 3
+                        ? 'Encrypted Chat App'
+                        : activeTab === 4
+                        ? 'AI Fitness App'
+                        : activeTab === 5
+                        ? 'Protfolio'
+                        : 'Portfolio'
+                        }
                     </span>
                   </div>
                   <h3 className="text-2xl md:text-3xl font-bold mb-4 text-gray-800">
@@ -261,7 +357,7 @@ const Projects = () => {
                       <GitHub size={18} className="mr-2" />
                       View Source Code
                     </a>
-                    <a
+                    {/* <a
                       href={projectDetails[activeTab].demo}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -269,7 +365,7 @@ const Projects = () => {
                     >
                       <ExternalLink size={18} className="mr-2" />
                       Live Demo
-                    </a>
+                    </a> */}
                   </div>
                 </motion.div>
               </div>

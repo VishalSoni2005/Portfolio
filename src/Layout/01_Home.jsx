@@ -210,7 +210,7 @@ export default function HomePage() {
               showBorder={false}
               className="text-base md:text-lg px-4 py-2 rounded-full bg-white shadow-sm group-hover:shadow-md transition-all duration-300 border border-gray-100"
             >
-              🎉 | Available for freelance work
+              🎉 | Looking For Internship opportunitiies
             </GradientText>
             <motion.div
               className="absolute inset-0 border border-gray-200 rounded-full transition-all duration-300"
@@ -336,7 +336,7 @@ export default function HomePage() {
                 repeatDelay: 0.5,
               }}
             />
-            Scroll <ArrowDown className="inline-block" />  to Know Me
+            Scroll <ArrowDown className="inline-block" /> to Know Me
           </motion.button>
         </motion.div>
 
